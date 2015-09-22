@@ -1,5 +1,0 @@
-# Glossary
-
-## *App*
-Hello world!
-
