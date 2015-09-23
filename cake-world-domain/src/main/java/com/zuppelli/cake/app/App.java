@@ -1,14 +1,12 @@
 package com.zuppelli.cake.app;
 
-import com.zuppelli.cake.livingdocs.ValueObject;
-
+import com.zuppelli.cake.livingdocs.ConceptoCentral;
 
 
 /**
  * Hello world!
  *
  */
-@ValueObject
 public class App 
 {
     public static void main( String[] args )

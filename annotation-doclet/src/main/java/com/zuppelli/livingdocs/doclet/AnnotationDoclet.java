@@ -2,16 +2,25 @@ package com.zuppelli.livingdocs.doclet;
 
 import com.sun.javadoc.*;
 import com.sun.tools.doclets.formats.html.HtmlDoclet;
+import com.thoughtworks.qdox.JavaProjectBuilder;
+import com.thoughtworks.qdox.model.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.List;
 
+/**
+ * Doclet that generates a text file.
+ */
 public class AnnotationDoclet
 {
     private final PrintWriter writer;
 
     public static int optionLength(String option)
     {
+        System.out.println(option);
         return HtmlDoclet.optionLength(option);
     }
 
@@ -27,7 +36,7 @@ public class AnnotationDoclet
 
     public AnnotationDoclet begin()
     {
-        writer.println("# " + "Glossary");
+        writer.println( "# " + "Glossary" );
         return this;
     }
 
@@ -38,11 +47,26 @@ public class AnnotationDoclet
 
     public static boolean start(RootDoc root)
     {
+        String sourcepath = "";
+        for( String[] tag : root.options() ) {
+            if( tag[0].equals( "-sourcepath" ) )
+            {
+                sourcepath = tag[1];
+                break;
+            }
+        }
+
         AnnotationDoclet doclet = null;
         try
         {
             doclet = new AnnotationDoclet(new PrintWriter("glossary.txt")).begin();
-            doclet.process(root);
+
+            JavaProjectBuilder builder = new JavaProjectBuilder();
+            // Adding all .java files in a source tree (recursively).
+            builder.addSourceTree( new File( sourcepath ) );
+
+            doclet.process( builder.getPackages() );
+            // doclet.process(root);
         } catch (FileNotFoundException e)
         {
             //...
@@ -56,24 +80,55 @@ public class AnnotationDoclet
         return true;
     }
 
-    public void process(RootDoc root)
-    {
-        final ClassDoc[] classes = root.classes();
-        for (ClassDoc clss : classes)
-        {
-            if (isBusinessMeaningful(clss))
-            {
-                process(clss);
+    public void process( Collection<JavaPackage> packages ) {
+        for ( JavaPackage pckge : packages ) {
+            for (JavaClass clss : pckge.getClasses() ) {
+                if (isBusinessMeaningful(clss.getAnnotations())) {
+                    process(clss);
+                }
             }
         }
     }
 
-    protected boolean isBusinessMeaningful(ProgramElementDoc doc)
-    {
-        final AnnotationDesc[] annotations = doc.annotations();
-        for (AnnotationDesc annotation : annotations)
+    public void process( JavaClass clss ) {
+        writer.println( "" );
+        writer.println("## *" + clss.getName() + "*");
+        writer.println(clss.getComment());
+        writer.println("");
+        if (clss.isEnum())
         {
-            if (isBusinessMeaningful(annotation.annotationType()))
+            for (JavaField field : clss.getEnumConstants())
+            {
+                printEnumConstant(field);
+            }
+            writer.println("");
+            for (JavaMethod method : clss.getMethods( false ))
+            {
+                printMethod(method);
+            }
+        } else if (clss.isInterface())        {
+            for ( JavaClass subClass : clss.getDerivedClasses() )
+            {
+                printSubClass(subClass);
+            }
+        } else
+        {
+            for (JavaField field : clss.getFields() )
+            {
+                printField(field);
+            }
+            for (JavaMethod method : clss.getMethods( false ))
+            {
+                printMethod(method);
+            }
+        }
+    }
+
+    protected boolean isBusinessMeaningful(List<JavaAnnotation> annotations )
+    {
+        for (JavaAnnotation annotation : annotations)
+        {
+            if (isBusinessMeaningful( annotation.getType() ))
             {
                 return true;
             }
@@ -81,69 +136,38 @@ public class AnnotationDoclet
         return false;
     }
 
-    boolean isBusinessMeaningful(final AnnotationTypeDoc annotationType)
+    boolean isBusinessMeaningful( final JavaClass annotationClass )
     {
-        return annotationType.qualifiedTypeName().contains("livingdocs");
+        return annotationClass.getClassNamePrefix().contains( "livingdocs" );
     }
 
-    protected void process(ClassDoc clss)
-    {
-        writer.println("");
-        writer.println("## *" + clss.simpleTypeName() + "*");
-        writer.println(clss.commentText());
-        writer.println("");
-        if (clss.isEnum())
-        {
-            for (FieldDoc field : clss.enumConstants())
-            {
-                printEnumConstant(field);
-            }
-            writer.println("");
-            for (MethodDoc method : clss.methods(false))
-            {
-                printMethod(method);
-            }
-        } else if (clss.isInterface())
-        {
-            /*
-            for (ClassDoc subClass : subclasses(clss))
-            {
-                printSubClass(subClass);
-            }
-            */
-        } else
-        {
-            for (FieldDoc field : clss.fields(false))
-            {
-                printField(field);
-            }
-            for (MethodDoc method : clss.methods(false))
-            {
-                printMethod(method);
-            }
-        }
-    }
-
-    private void printField(FieldDoc field)
+    private void printField(JavaField field)
     {
     }
 
-    private void printEnumConstant(FieldDoc field)
+    private void printSubClass( JavaClass clss )
+    {
+        writer.println( "" );
+        writer.println("   >> *" + clss.getName() + "*");
+        writer.println("   " + clss.getComment());
+    }
+
+    private void printEnumConstant(JavaField field)
     {
     }
 
-    private void printMethod(MethodDoc m)
+    private void printMethod(JavaMethod m)
     {
         if (!m.isPublic() || !hasComment(m))
         {
             return;
         }
-        final String signature = m.name() + m.flatSignature() + ": " + m.returnType().simpleTypeName();
-        writer.println("- " + signature + " " + m.commentText());
+        final String signature = m.getName() + m.getCallSignature() + ": " + m.getReturnType().getCanonicalName();
+        writer.println("- " + signature + " " + m.getComment());
     }
 
-    private boolean hasComment(ProgramElementDoc doc)
+    private boolean hasComment(JavaAnnotatedElement doc)
     {
-        return doc.commentText().trim().length() > 0;
+        return null!= doc.getComment() && doc.getComment().trim().length() > 0;
     }
 }
