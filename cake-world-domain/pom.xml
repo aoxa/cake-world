@@ -34,7 +34,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.3</version>
                 <configuration>
-                    <doclet>com.zuppelli.livingdocs.doclet.AnnotationDoclet</doclet>
+                    <doclet>com.zuppelli.livingdocs.doclet.AnnotationHTMLDoclet</doclet>
                     <docletArtifact>
                         <groupId>com.zuppelli.livingdocs</groupId>
                         <artifactId>annotation-doclet</artifactId>
