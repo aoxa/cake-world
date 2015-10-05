@@ -1,8 +1,8 @@
 package com.zuppelli.cake.comercio.estado;
 
-import com.zuppelli.cake.livingdocs.ComportamientoCentral;
-import com.zuppelli.cake.livingdocs.ConceptoCentral;
-import com.zuppelli.cake.livingdocs.State;
+import com.zuppelli.livingdocs.ComportamientoCentral;
+import com.zuppelli.livingdocs.ConceptoCentral;
+import com.zuppelli.livingdocs.State;
 
 /**
  * Maquina de estados que indica el estado del pedido actual.
