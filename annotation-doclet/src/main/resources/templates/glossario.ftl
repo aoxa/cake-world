@@ -8,17 +8,6 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <!--
-    <style>
-        .clase-nombre{ width: 35%;float: left; margin-top: 10px; text-decoration: underline; }
-        .clase-com{ width: 65%; float: left; }
-        .metodo-firma{ width: 35%; margin-left: 10px; float: left; }
-        .metodo-com{ width: 55%; float: left; }
-        .derivada-nombre{ width: 35%; margin-left: 10px; float: left; }
-        .derivada-com{ width: 55%; float: left; }
-        .clear { clear: both; }
-    </style>
-    -->
 </head>
 <body>
 <div class="titulo"><h2>Glosario</h2></div>

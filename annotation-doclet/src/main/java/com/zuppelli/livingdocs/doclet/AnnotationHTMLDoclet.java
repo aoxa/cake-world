@@ -70,7 +70,9 @@ public class AnnotationHTMLDoclet
         } catch ( TemplateException | IOException ex ) {
             System.out.println( "Error tratando de escribir con el template" );
         }
-        writer.close();
+        finally {
+            writer.close();
+        }
     }
 
     public static boolean start( RootDoc root )
