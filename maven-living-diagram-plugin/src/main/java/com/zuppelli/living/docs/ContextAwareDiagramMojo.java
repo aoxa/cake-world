@@ -26,6 +26,7 @@ import org.livingdocumentation.dotdiagram.DotGraph;
 import org.livingdocumentation.dotdiagram.DotStyles;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -71,8 +72,17 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
                     final Class<?> type = field.getType();
                     if ( !type.isPrimitive() )
                     {
-                        digraph.addExistingAssociation( clazz.getName(), type.getName(), null, null,
-                                DotStyles.ASSOCIATION_EDGE_STYLE );
+                        if( field.getGenericType().getTypeName().startsWith( "java.util" ))   {
+                            ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
+
+                            digraph.addExistingAssociation( clazz.getName(),  ((Class)parameterizedType.getActualTypeArguments()[0]).getName(), "[1,0]...*", null,
+                                                            DotStyles.ASSOCIATION_EDGE_STYLE );
+
+                        }else {
+                            digraph.addExistingAssociation( clazz.getName(), type.getName(), null, null,
+                                                            DotStyles.ASSOCIATION_EDGE_STYLE );
+                        }
+
                     }
                 }
 
