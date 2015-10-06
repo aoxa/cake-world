@@ -95,11 +95,11 @@ public class DomainDiagramMojo
     protected void populateAssociations( ImmutableSet<ClassPath.ClassInfo> allClasses, final DotGraph.Digraph digraph )
     {
         Stream<ClassPath.ClassInfo> infra = allClasses.stream().filter( filterNot( getPrefix(), "domain" ) );
-        infra.forEach( new ClassRelationshipConsumer( digraph ));
+        infra.forEach( new ClassRelationshipConsumer( digraph, getShowDeprecated() ));
 
         // then wire them together
         Stream<ClassPath.ClassInfo> domain = allClasses.stream().filter( filter( getPrefix(), "domain" ) );
-        domain.forEach( new ClassRelationshipConsumer( digraph ) );
+        domain.forEach( new ClassRelationshipConsumer( digraph, getShowDeprecated()) );
     }
 
     private Predicate<ClassPath.ClassInfo> filter( final String prefix, final String layer )

@@ -32,6 +32,9 @@ public abstract class BaseDiagramMojo extends AbstractMojo
     @Parameter( property = "diagram.prefix", required = true )
     private String prefix;
 
+    @Parameter( property = "diagram.showDeprecated", defaultValue = "true" )
+    private Boolean showDeprecated;
+
     @Component
     private MavenProject project;
 
@@ -136,5 +139,15 @@ public abstract class BaseDiagramMojo extends AbstractMojo
     public void setProject( MavenProject project )
     {
         this.project = project;
+    }
+
+    public Boolean getShowDeprecated()
+    {
+        return showDeprecated;
+    }
+
+    public void setShowDeprecated( Boolean showDeprecated )
+    {
+        this.showDeprecated = showDeprecated;
     }
 }

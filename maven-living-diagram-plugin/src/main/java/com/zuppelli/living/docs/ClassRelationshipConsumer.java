@@ -11,9 +11,10 @@ import java.util.function.Consumer;
 public class ClassRelationshipConsumer implements Consumer<ClassPath.ClassInfo>
 {
     final DotGraph.Digraph digraph;
-
-    public ClassRelationshipConsumer( final DotGraph.Digraph digraph ) {
+    final boolean showDeprecated;
+    public ClassRelationshipConsumer( final DotGraph.Digraph digraph, boolean showDeprecated ) {
         this.digraph = digraph;
+        this.showDeprecated = showDeprecated;
     }
 
     @Override
@@ -24,6 +25,10 @@ public class ClassRelationshipConsumer implements Consumer<ClassPath.ClassInfo>
         for ( Field field : clazz.getDeclaredFields() )
         {
             final Class<?> type = field.getType();
+
+            if ( ! showDeprecated && null != type.getAnnotation( Deprecated.class ) )
+                continue;
+
             if ( !type.isPrimitive() )
             {
                 if( field.getGenericType().getTypeName().startsWith( "java.util" ))   {
@@ -43,10 +48,16 @@ public class ClassRelationshipConsumer implements Consumer<ClassPath.ClassInfo>
         // SPI
         for ( Class intf : clazz.getInterfaces() )
         {
+            if ( ! showDeprecated && null != intf.getAnnotation( Deprecated.class ) )
+                continue;
             digraph.addExistingAssociation( intf.getName(), clazz.getName(), null, null, DotStyles.IMPLEMENTS_EDGE_STYLE );
         }
-        if( null != clazz.getSuperclass() && !clazz.getSuperclass().getName().equals( Object.class.getName() ))
+
+        if( null != clazz.getSuperclass() && !clazz.getSuperclass().getName().equals( Object.class.getName() )) {
+            if ( showDeprecated || null != clazz.getAnnotation( Deprecated.class ) )
                 digraph.addExistingAssociation( clazz.getSuperclass().getName(), clazz.getName(), null, null, DotStyles.EXTENDS_EDGE_STYLE );
+        }
+
 
     }
 }

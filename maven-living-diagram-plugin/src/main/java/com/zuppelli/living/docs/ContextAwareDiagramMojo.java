@@ -58,12 +58,12 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
         Stream<ClassPath.ClassInfo> infra;
 
         infra = allClasses.stream().filter( ClassInfoFilters.filterNot( this.packages ) );
-        infra.forEach( new ClassRelationshipConsumer( digraph ) );
+        infra.forEach( new ClassRelationshipConsumer( digraph, getShowDeprecated() ) );
 
         for ( Map.Entry<String, String> entry : this.packages.entrySet() )
         {
             Stream<ClassPath.ClassInfo> domain = allClasses.stream().filter( ClassInfoFilters.filter( entry.getKey() ) );
-            domain.forEach( new ClassRelationshipConsumer( digraph ));
+            domain.forEach( new ClassRelationshipConsumer( digraph, getShowDeprecated() ));
         }
     }
 
