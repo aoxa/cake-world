@@ -47,6 +47,14 @@
                     </docletArtifact>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.zuppelli.living.docs</groupId>
+                <artifactId>living-diagram-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <configuration>
+                    <prefix>com.zuppelli.cake</prefix>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <reporting>
