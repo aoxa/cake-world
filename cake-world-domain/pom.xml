@@ -53,6 +53,7 @@
                 <version>1.0-SNAPSHOT</version>
                 <configuration>
                     <prefix>com.zuppelli.cake</prefix>
+                    <showDeprecated>true</showDeprecated>
                 </configuration>
             </plugin>
         </plugins>
