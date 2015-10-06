@@ -76,7 +76,7 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
             public void accept( ClassPath.ClassInfo ci )
             {
                 final Class clazz = ci.load();
-                if ( !PACKAGE_INFO.equals( clazz.getSimpleName() ) )
+                if ( !ignoreDeprecated( clazz ) && !PACKAGE_INFO.equals( clazz.getSimpleName() ) )
                     digraph.addNode( clazz.getName() ).setLabel( clazz.getSimpleName() ).setComment( clazz.getSimpleName() );
             }
         } );
@@ -113,7 +113,8 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
                 public void accept( ClassPath.ClassInfo ci )
                 {
                     final Class clazz = ci.load();
-                    if ( !PACKAGE_INFO.equals( clazz.getSimpleName() ) && !handled.contains( clazz ) )
+
+                    if ( !ignoreDeprecated( clazz ) && !PACKAGE_INFO.equals( clazz.getSimpleName() ) && !handled.contains( clazz ) )
                     {
                         core.addNode( clazz.getName() ).setLabel( clazz.getSimpleName() ).setComment( clazz.getSimpleName() );
                         handled.add( clazz );

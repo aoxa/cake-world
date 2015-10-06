@@ -54,7 +54,7 @@ public class ClassRelationshipConsumer implements Consumer<ClassPath.ClassInfo>
         }
 
         if( null != clazz.getSuperclass() && !clazz.getSuperclass().getName().equals( Object.class.getName() )) {
-            if ( showDeprecated || null != clazz.getAnnotation( Deprecated.class ) )
+            if ( null == clazz.getAnnotation( Deprecated.class ) || showDeprecated )
                 digraph.addExistingAssociation( clazz.getSuperclass().getName(), clazz.getName(), null, null, DotStyles.EXTENDS_EDGE_STYLE );
         }
 

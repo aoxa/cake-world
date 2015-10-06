@@ -72,7 +72,8 @@ public class DomainDiagramMojo
             public void accept( ClassPath.ClassInfo ci )
             {
                 final Class clazz = ci.load();
-                core.addNode( clazz.getName() ).setLabel( clazz.getSimpleName() ).setComment( clazz.getSimpleName() );
+                if( !ignoreDeprecated( clazz ) )
+                    core.addNode( clazz.getName() ).setLabel( clazz.getSimpleName() ).setComment( clazz.getSimpleName() );
             }
         } );
     }
@@ -86,7 +87,8 @@ public class DomainDiagramMojo
             public void accept( ClassPath.ClassInfo ci )
             {
                 final Class clazz = ci.load();
-                digraph.addNode( clazz.getName() ).setLabel( clazz.getSimpleName() ).setComment( clazz.getSimpleName() );
+                if( !ignoreDeprecated( clazz ) )
+                    digraph.addNode( clazz.getName() ).setLabel( clazz.getSimpleName() ).setComment( clazz.getSimpleName() );
             }
         } );
     }

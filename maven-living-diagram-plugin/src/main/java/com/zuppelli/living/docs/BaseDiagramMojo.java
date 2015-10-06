@@ -82,6 +82,12 @@ public abstract class BaseDiagramMojo extends AbstractMojo
 
     protected abstract void populateAssociations( ImmutableSet<ClassPath.ClassInfo> allClasses, final DotGraph.Digraph digraph );
 
+
+    protected final boolean ignoreDeprecated( Class clazz )
+    {
+        return ! getShowDeprecated() && null != clazz.getAnnotation( Deprecated.class );
+    }
+
     public static ClassLoader getClassLoader( MavenProject project ) throws MalformedURLException, DependencyResolutionRequiredException
     {
         List<String> classPathElements = compileClassPathElements( project );
