@@ -23,10 +23,7 @@ import com.zuppelli.livingdocs.DomainContext;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.livingdocumentation.dotdiagram.DotGraph;
-import org.livingdocumentation.dotdiagram.DotStyles;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -61,63 +58,12 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
         Stream<ClassPath.ClassInfo> infra;
 
         infra = allClasses.stream().filter( ClassInfoFilters.filterNot( this.packages ) );
-        infra.forEach( new Consumer<ClassPath.ClassInfo>()
-        {
-            public void accept( ClassPath.ClassInfo ci )
-            {
-                final Class clazz = ci.load();
-                // API
-                for ( Field field : clazz.getDeclaredFields() )
-                {
-                    final Class<?> type = field.getType();
-                    if ( !type.isPrimitive() )
-                    {
-                        if( field.getGenericType().getTypeName().startsWith( "java.util" ))   {
-                            ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
-
-                            digraph.addExistingAssociation( clazz.getName(),  ((Class)parameterizedType.getActualTypeArguments()[0]).getName(), "[1,0]...*", null,
-                                                            DotStyles.ASSOCIATION_EDGE_STYLE );
-
-                        }else {
-                            digraph.addExistingAssociation( clazz.getName(), type.getName(), null, null,
-                                                            DotStyles.ASSOCIATION_EDGE_STYLE );
-                        }
-
-                    }
-                }
-
-                // SPI
-                for ( Class intf : clazz.getInterfaces() )
-                {
-                    digraph.addExistingAssociation( intf.getName(), clazz.getName(), null, null, DotStyles.IMPLEMENTS_EDGE_STYLE );
-                }
-            }
-        } );
+        infra.forEach( new ClassRelationshipConsumer( digraph ) );
 
         for ( Map.Entry<String, String> entry : this.packages.entrySet() )
         {
             Stream<ClassPath.ClassInfo> domain = allClasses.stream().filter( ClassInfoFilters.filter( entry.getKey() ) );
-            domain.forEach( new Consumer<ClassPath.ClassInfo>()
-            {
-                public void accept( ClassPath.ClassInfo ci )
-                {
-                    final Class clazz = ci.load();
-                    for ( Field field : clazz.getDeclaredFields() )
-                    {
-                        final Class<?> type = field.getType();
-                        if ( !type.isPrimitive() )
-                        {
-                            digraph.addExistingAssociation( clazz.getName(), type.getName(), null, null,
-                                    DotStyles.ASSOCIATION_EDGE_STYLE );
-                        }
-                    }
-
-                    for ( Class intf : clazz.getInterfaces() )
-                    {
-                        digraph.addExistingAssociation( intf.getName(), clazz.getName(), null, null, DotStyles.IMPLEMENTS_EDGE_STYLE );
-                    }
-                }
-            } );
+            domain.forEach( new ClassRelationshipConsumer( digraph ));
         }
     }
 

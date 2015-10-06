@@ -27,11 +27,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.livingdocumentation.dotdiagram.DotGraph;
-import org.livingdocumentation.dotdiagram.DotStyles;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -59,12 +57,6 @@ public class DomainDiagramMojo
         {
             throw new MojoExecutionException( e.getMessage() );
         }
-    }
-
-    @Override
-    protected void populatePackageInfoMap( ImmutableSet<ClassPath.ClassInfo> allClasses )
-    {
-
     }
 
     @Override
@@ -103,53 +95,11 @@ public class DomainDiagramMojo
     protected void populateAssociations( ImmutableSet<ClassPath.ClassInfo> allClasses, final DotGraph.Digraph digraph )
     {
         Stream<ClassPath.ClassInfo> infra = allClasses.stream().filter( filterNot( getPrefix(), "domain" ) );
-        infra.forEach( new Consumer<ClassPath.ClassInfo>()
-        {
-            public void accept( ClassPath.ClassInfo ci )
-            {
-                final Class clazz = ci.load();
-                // API
-                for ( Field field : clazz.getDeclaredFields() )
-                {
-                    final Class<?> type = field.getType();
-                    if ( !type.isPrimitive() )
-                    {
-                        digraph.addExistingAssociation( clazz.getName(), type.getName(), null, null,
-                                DotStyles.ASSOCIATION_EDGE_STYLE );
-                    }
-                }
-
-                // SPI
-                for ( Class intf : clazz.getInterfaces() )
-                {
-                    digraph.addExistingAssociation( intf.getName(), clazz.getName(), null, null, DotStyles.IMPLEMENTS_EDGE_STYLE );
-                }
-            }
-        } );
+        infra.forEach( new ClassRelationshipConsumer( digraph ));
 
         // then wire them together
         Stream<ClassPath.ClassInfo> domain = allClasses.stream().filter( filter( getPrefix(), "domain" ) );
-        domain.forEach( new Consumer<ClassPath.ClassInfo>()
-        {
-            public void accept( ClassPath.ClassInfo ci )
-            {
-                final Class clazz = ci.load();
-                for ( Field field : clazz.getDeclaredFields() )
-                {
-                    final Class<?> type = field.getType();
-                    if ( !type.isPrimitive() )
-                    {
-                        digraph.addExistingAssociation( clazz.getName(), type.getName(), null, null,
-                                DotStyles.ASSOCIATION_EDGE_STYLE );
-                    }
-                }
-
-                for ( Class intf : clazz.getInterfaces() )
-                {
-                    digraph.addExistingAssociation( intf.getName(), clazz.getName(), null, null, DotStyles.IMPLEMENTS_EDGE_STYLE );
-                }
-            }
-        } );
+        domain.forEach( new ClassRelationshipConsumer( digraph ) );
     }
 
     private Predicate<ClassPath.ClassInfo> filter( final String prefix, final String layer )

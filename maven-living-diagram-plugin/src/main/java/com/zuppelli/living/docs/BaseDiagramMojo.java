@@ -37,7 +37,7 @@ public abstract class BaseDiagramMojo extends AbstractMojo
 
     private final Map<String, Object> content = new HashMap<String, Object>();
 
-    public void generateDiagram() throws Exception
+    public final void generateDiagram() throws Exception
     {
         final DotGraph graph = new DotGraph( projectName, "LR" );
         final ClassPath classPath = ClassPath.from( getClassLoader( this.getProject() ) );
@@ -71,7 +71,7 @@ public abstract class BaseDiagramMojo extends AbstractMojo
         }
     }
 
-    protected abstract void populatePackageInfoMap( ImmutableSet<ClassPath.ClassInfo> allClasses );
+    protected void populatePackageInfoMap( ImmutableSet<ClassPath.ClassInfo> allClasses ) {;};
 
     protected abstract void populatePackageClusters( ImmutableSet<ClassPath.ClassInfo> allClasses, final DotGraph.Digraph digraph );
 
