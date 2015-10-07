@@ -82,12 +82,14 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
         } );
     }
 
+    private Map<String, DotGraph.Cluster > clusters = new HashMap(  );
+
     protected void populatePackageClusters( ImmutableSet<ClassPath.ClassInfo> allClasses, DotGraph.Digraph digraph )
     {
         List<String> orderedPackages = new ArrayList<String>( this.packages.keySet() );
-        Collections.sort( orderedPackages, this.stringLengthComparator );
+        Collections.sort( orderedPackages, this.largerLengthComparator );
         final Set<Class> handled = new HashSet<Class>();
-        Map<String, DotGraph.Cluster> clusters = new HashMap<String, DotGraph.Cluster>();
+        clusters.clear();
 
         for ( String pkg : orderedPackages )
         {
@@ -105,6 +107,7 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
             }
 
             final DotGraph.Cluster core = null == found ? digraph.addCluster( pkg ) : found.addCluster( pkg );
+
             clusters.put( pkg, core );
             core.setLabel( name );
 
@@ -143,7 +146,7 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
         } );
     }
 
-    private final Comparator<String> stringLengthComparator = new Comparator<String>()
+    private final Comparator<String> largerLengthComparator = new Comparator<String>()
     {
         @Override
         public int compare( String o1, String o2 )
@@ -155,6 +158,21 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
             if ( null == o2 )
                 return 1;
             return Integer.compare( o1.length(), o2.length() );
+        }
+    };
+
+    private final Comparator<String> shorterLengthComparator = new Comparator<String>()
+    {
+        @Override
+        public int compare( String o1, String o2 )
+        {
+            if ( null == o1 && null == o2 )
+                return 0;
+            if ( null == o1 )
+                return 1;
+            if ( null == o2 )
+                return -1;
+            return -Integer.compare( o1.length(), o2.length() );
         }
     };
 }

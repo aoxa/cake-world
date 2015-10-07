@@ -13,7 +13,7 @@ public class ClassInfoFilters
             public boolean test( ClassPath.ClassInfo ci )
             {
                 return  isNotATest( ci )
-                        && ci.getPackageName().equals( layer );
+                        && ci.getPackageName().contains( layer );
             }
         };
     }
