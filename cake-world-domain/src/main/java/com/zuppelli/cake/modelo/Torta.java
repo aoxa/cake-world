@@ -6,12 +6,19 @@ import com.zuppelli.livingdocs.ConceptoCentral;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Masa de harina, con otros ingredientes, de forma redonda, que se cuece a fuego lento.
+ */
 @ConceptoCentral
 public class Torta
 {
     private List<Piso> pisos;
     private Cobertura cobertura;
 
+    /**
+     * Precio total de la torta.
+     * @return el precio.
+     */
     @ComportamientoCentral
     public double getPrecio( )
     {

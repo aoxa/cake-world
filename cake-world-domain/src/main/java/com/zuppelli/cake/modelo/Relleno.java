@@ -3,10 +3,10 @@ package com.zuppelli.cake.modelo;
 import com.zuppelli.livingdocs.ConceptoCentral;
 
 /**
- * Lamina de distintos tipos de ingredientes que cubre una torta.
+ * Ingrediente que va en el centro de un piso de una torta.
  */
 @ConceptoCentral
-public class Cobertura
+public class Relleno
 {
     private String tipo;
 
