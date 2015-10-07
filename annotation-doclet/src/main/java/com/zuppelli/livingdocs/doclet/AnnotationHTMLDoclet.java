@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URISyntaxException;
 import java.util.*;
 
 /**
@@ -203,7 +202,7 @@ public class AnnotationHTMLDoclet
         {
             return null;
         }
-        return new JMethod( m.getName() + m.getCallSignature() + ": " + m.getReturnType().getCanonicalName(),
+        return new JMethod( m.getCallSignature() + ": " + m.getReturnType().getCanonicalName(),
                 m.getComment() );
     }
 

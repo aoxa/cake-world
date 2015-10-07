@@ -9,6 +9,7 @@ import com.zuppelli.livingdocs.ConceptoCentral;
 public class Piso
 {
     private double precio;
+    private Relleno relleno;
 
     public double getPrecio()
     {
@@ -18,5 +19,15 @@ public class Piso
     public void setPrecio( double precio )
     {
         this.precio = precio;
+    }
+
+    public Relleno getRelleno()
+    {
+        return relleno;
+    }
+
+    public void setRelleno( Relleno relleno )
+    {
+        this.relleno = relleno;
     }
 }
