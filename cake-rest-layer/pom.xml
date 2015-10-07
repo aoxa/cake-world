@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.zuppelli.cake</groupId>
+	<artifactId>cake-world-rest</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>Cake World Rest Api</name>
+	<properties>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-spring</artifactId>
+			<version>1.19</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zuppelli.cake</groupId>
+			<artifactId>cake-world-domain</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- http://localhost:8080/cake-world-rest/api/application.wadl/ -->
+		<finalName>${project.name}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<port>8080</port>
+					<httpsPort>8443</httpsPort>
+					<path>/</path>
+					<hostName>localhost</hostName>
+					<!--
+					<contextFile>${basedir}/src/test/resources/integration/context.xml</contextFile>
+					<keystoreFile>${basedir}/src/test/resources/integration/keystore.jks</keystoreFile>
+					<keystorePass>password</keystorePass>
+					-->
+					<extraDependencies>
+						<dependency>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+							<version>1.7.7</version>
+						</dependency>
+						<dependency>
+							<groupId>log4j</groupId>
+							<artifactId>log4j</artifactId>
+							<version>1.2.17</version>
+						</dependency>
+					</extraDependencies>
+					<skipErrorOnShutdown>true</skipErrorOnShutdown>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+</project>

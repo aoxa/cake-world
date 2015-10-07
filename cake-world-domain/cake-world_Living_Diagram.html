@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html><head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- <script src="https://github.com/mdaines/viz.js/releases/download/1.0.1/viz.js"></script>
+    -->
+    <script src="lib/viz.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>cake-world Living Diagram</title>
+  </head>
+  <body>
+    
+    <script type="text/vnd.graphviz" id="custom">
+    # Class diagram cake-world
+digraph G {
+	graph [labelloc=top,label="cake-world",fontname="Verdana",fontsize=12,rankdir=LR];
+	edge [fontname="Verdana",fontsize=9,labelfontname="Verdana",labelfontsize=9];
+	node [fontname="Verdana",fontsize=9,shape=record];
+subgraph cluster_c0 {
+label = "Modelo de negocio";
+//Cobertura
+	c1 [label="Cobertura"]
+//Piso
+	c2 [label="Piso"]
+//Torta
+	c3 [label="Torta"]
+}
+subgraph cluster_c4 {
+label = "Comercio";
+//PorCupon
+	c10 [label="PorCupon"]
+//Carrito
+	c5 [label="Carrito"]
+//Cupon
+	c6 [label="Cupon"]
+//Descuento
+	c7 [label="Descuento"]
+//NuevoCliente
+	c8 [label="NuevoCliente"]
+//PorCantidad
+	c9 [label="PorCantidad"]
+}
+//PorCupon
+	c10 [label="PorCupon"]
+//Descuento
+	c7 [label="Descuento"]
+//NuevoCliente
+	c8 [label="NuevoCliente"]
+//PorCantidad
+	c9 [label="PorCantidad"]
+	// null
+	c10 -> c6 [arrowhead=open];
+	// null
+	c7 -> c8 [dir=back,arrowtail=empty,style=dashed];
+	// null
+	c7 -> c9 [dir=back,arrowtail=empty,style=dashed];
+	// null
+	c5 -> c3 [label="[1,0]...*"  , arrowhead=open];
+	// null
+	c5 -> c7 [arrowhead=open];
+	// null
+	c7 -> c10 [dir=back,arrowtail=empty,style=dashed];
+	// null
+	c3 -> c1 [arrowhead=open];
+	// null
+	c3 -> c2 [label="[1,0]...*"  , arrowhead=open];
+}
+	</script>
+    <script>
+      
+      function inspect(s) {
+        return "<pre>" + s.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;") + "</pre>"
+      }
+      
+      function src(id) {
+        return document.getElementById(id).innerHTML;
+      }
+      
+      function example(id, format, engine) {
+        var result;
+        try {
+          result = Viz(src(id), format, engine);
+          if (format === "svg")
+            return result;
+          else
+            return inspect(result);
+        } catch(e) {
+          return inspect(e.toString());
+        }
+      }
+      
+      document.body.innerHTML += "<h1>cake-world Living Diagram</h1>"
+      document.body.innerHTML += example("custom", "svg");
+    </script>    
+</body></html>

@@ -82,14 +82,13 @@ public class ContextAwareDiagramMojo extends BaseDiagramMojo
         } );
     }
 
-    private Map<String, DotGraph.Cluster > clusters = new HashMap(  );
-
     protected void populatePackageClusters( ImmutableSet<ClassPath.ClassInfo> allClasses, DotGraph.Digraph digraph )
     {
         List<String> orderedPackages = new ArrayList<String>( this.packages.keySet() );
         Collections.sort( orderedPackages, this.largerLengthComparator );
         final Set<Class> handled = new HashSet<Class>();
-        clusters.clear();
+
+        Map<String, DotGraph.Cluster > clusters = new HashMap(  );
 
         for ( String pkg : orderedPackages )
         {
