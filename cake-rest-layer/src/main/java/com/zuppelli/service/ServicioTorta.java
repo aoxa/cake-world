@@ -5,6 +5,8 @@ import com.zuppelli.repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 /**
  *
  */
@@ -18,11 +20,15 @@ public class ServicioTorta {
         return repository.retrieve( id );
     }
 
+    public Collection<Torta> get() {
+        return repository.retrieve();
+    }
+
     public Torta store( Torta torta ) {
         return repository.store( torta );
     }
 
-    public void remove( Torta torta ) {
-        repository.remove( torta );
+    public void remove( Long id ) {
+        repository.remove( id );
     }
 }

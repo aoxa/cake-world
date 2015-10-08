@@ -5,6 +5,7 @@ import com.zuppelli.storage.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Random;
 
 /**
@@ -19,19 +20,24 @@ public class RepositorioTorta implements Repository<Torta, Long> {
 
     @Override
     public Torta store( Torta entity ) {
-        entity.setId( random.nextLong() );
+        entity.setId( Math.abs( random.nextLong() ) );
         storage.store( Torta.class, entity, entity.getId() );
 
         return entity;
     }
 
     @Override
-    public void remove( Torta entity ) {
-        storage.delete( Torta.class, entity );
+    public void remove( Long id ) {
+        storage.delete( Torta.class, id );
     }
 
     @Override
     public Torta retrieve( Long id ) {
         return storage.retrieve( Torta.class, id );
+    }
+
+    @Override
+    public Collection<Torta> retrieve() {
+        return storage.retrieve( Torta.class );
     }
 }

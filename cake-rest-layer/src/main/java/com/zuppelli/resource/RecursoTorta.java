@@ -6,37 +6,41 @@ import com.zuppelli.cake.modelo.Piso;
 import com.zuppelli.cake.modelo.Relleno;
 import com.zuppelli.cake.modelo.Torta;
 import com.zuppelli.service.ServicioTorta;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jettison.json.JSONObject;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Path( "/torta" )
 @Autowire
-public class RecursoTorta extends Recurso<Torta>
+public class RecursoTorta extends Recurso<Torta,Long>
 {
     private ServicioTorta servicioTorta;
 
     @Override
-    public Torta get() {
-        Torta torta = new Torta();
-        torta.setCobertura( new Cobertura() );
-        Piso piso = new Piso();
-        torta.agregarPiso( piso );
-        piso.setPrecio( 100d );
-        piso.setRelleno( new Relleno() );
-        piso.getRelleno().setTipo( "Chocolate" );
-        torta.getCobertura().setTipo( "Chispas" );
+    public Collection<Torta> get() {
 
-        return torta;
+        List<Torta> tortas = new ArrayList<Torta>(  );
+        for( int i = 0; i < 5; i++) {
+            Torta torta = new Torta();
+            torta.setCobertura( new Cobertura() );
+            Piso piso = new Piso();
+            torta.agregarPiso( piso );
+            piso.setPrecio( 100d + 3 * i );
+            piso.setRelleno( new Relleno() );
+            piso.getRelleno().setTipo( "Chocolate" );
+            torta.getCobertura().setTipo( "Chispas" );
+            servicioTorta.store( torta );
+        }
+
+        return servicioTorta.get();
     }
 
-    public static void main(String[] args ) throws Exception{
-        ObjectMapper mapper = new ObjectMapper();
-
-            new JSONObject( "{\"cobertura\":{\"tipo\":\"Chispas\"}}" );
-
+    @Override
+    public Torta get(Long id) {
+        return servicioTorta.get( id );
     }
 
     @Override
@@ -46,8 +50,8 @@ public class RecursoTorta extends Recurso<Torta>
     }
 
     @Override
-    public void delete( com.zuppelli.cake.modelo.Torta entity ) {
-        servicioTorta.remove( entity );
+    public void delete( Long id ) {
+        servicioTorta.remove( id );
     }
 
     @Override

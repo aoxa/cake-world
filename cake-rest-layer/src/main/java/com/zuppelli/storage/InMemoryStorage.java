@@ -3,6 +3,7 @@ package com.zuppelli.storage;
 import com.zuppelli.cake.modelo.Entity;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,10 +34,19 @@ public class InMemoryStorage implements Storage{
     }
 
     @Override
-    public <T, K> void delete( Class<T> clazz, Entity<K> entity ) {
+    public <T> Collection<T> retrieve( Class<T> clazz) {
         Map<Object, Object> map = content.get( clazz );
         if( null != map ) {
-            map.remove( entity.getId() );
+            return (Collection<T> )map.values();
+        }
+        return null;
+    }
+
+    @Override
+    public <T, K> void delete( Class<T> clazz, K id ) {
+        Map<Object, Object> map = content.get( clazz );
+        if( null != map ) {
+            map.remove( id );
         }
     }
 }
