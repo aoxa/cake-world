@@ -2,6 +2,7 @@ package com.zuppelli.cake.modelo;
 
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import java.util.List;
  * Masa de harina, con otros ingredientes, de forma redonda, que se cuece a fuego lento.
  */
 @ConceptoCentral
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Torta implements Entity<Long>
 {
     private final List<Piso> pisos = new ArrayList<Piso>(  );

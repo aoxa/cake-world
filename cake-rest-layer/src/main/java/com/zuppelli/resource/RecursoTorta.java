@@ -8,20 +8,18 @@ import com.zuppelli.cake.modelo.Torta;
 import com.zuppelli.service.ServicioTorta;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 @Path( "/torta" )
 @Autowire
-public class RecursoTorta extends Recurso<com.zuppelli.cake.modelo.Torta>
+public class RecursoTorta extends Recurso<Torta>
 {
-    @Autowired
     private ServicioTorta servicioTorta;
 
     @Override
-    public com.zuppelli.cake.modelo.Torta get() {
+    public Torta get() {
         Torta torta = new Torta();
         torta.setCobertura( new Cobertura() );
         Piso piso = new Piso();
@@ -43,8 +41,8 @@ public class RecursoTorta extends Recurso<com.zuppelli.cake.modelo.Torta>
 
     @Override
     public Response add( Torta entity ) {
-
-        return Response.created( uriInfo.getAbsolutePath() ).entity( servicioTorta.store( entity ) ).build();
+        servicioTorta.store( entity );
+        return Response.created( uriInfo.getAbsolutePath() ).build();
     }
 
     @Override

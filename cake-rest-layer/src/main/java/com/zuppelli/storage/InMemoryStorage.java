@@ -1,6 +1,7 @@
 package com.zuppelli.storage;
 
 import com.zuppelli.cake.modelo.Entity;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Map;
 /**
  * Created by pedro.zuppelli on 07/10/2015.
  */
+@Component
 public class InMemoryStorage implements Storage{
     private Map<Class<?>, Map<Object, Object>> content = new HashMap<Class<?>, Map<Object, Object>>();
 

@@ -1,15 +1,18 @@
 package com.zuppelli.service;
 
 import com.zuppelli.cake.modelo.Torta;
-import com.zuppelli.repository.RepositorioTorta;
 import com.zuppelli.repository.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  */
+@Service
 public class ServicioTorta {
 
-    private Repository<Torta, Long> repository = new RepositorioTorta();
+    @Autowired
+    private Repository<Torta, Long> repository;
 
     public Torta get(Long id) {
         return repository.retrieve( id );
