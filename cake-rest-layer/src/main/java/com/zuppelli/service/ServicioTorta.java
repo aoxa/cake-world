@@ -1,5 +1,6 @@
 package com.zuppelli.service;
 
+import com.zuppelli.cake.modelo.Piso;
 import com.zuppelli.cake.modelo.Torta;
 import com.zuppelli.repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,9 @@ public class ServicioTorta {
 
     public void remove( Long id ) {
         repository.remove( id );
+    }
+
+    public void agregarPiso(Long tortaId, Piso piso ) {
+        repository.retrieve( tortaId ).agregarPiso( piso );
     }
 }
