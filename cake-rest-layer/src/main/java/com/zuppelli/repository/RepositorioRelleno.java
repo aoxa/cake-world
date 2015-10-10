@@ -1,0 +1,39 @@
+package com.zuppelli.repository;
+
+import com.zuppelli.cake.modelo.Relleno;
+import com.zuppelli.storage.Storage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+
+@Component
+public class RepositorioRelleno implements Repository<Relleno, Long>
+{
+    @Autowired private Storage storage;
+
+    @Override
+    public Relleno store( Relleno entity )
+    {
+        return storage.store( Relleno.class, entity );
+
+    }
+
+    @Override
+    public void remove( Long identifier )
+    {
+        this.storage.delete( Relleno.class, identifier );
+    }
+
+    @Override
+    public Relleno retrieve( Long identifier )
+    {
+        return this.storage.retrieve( Relleno.class, identifier );
+    }
+
+    @Override
+    public Collection<Relleno> retrieve()
+    {
+        return this.storage.retrieve( Relleno.class );
+    }
+}

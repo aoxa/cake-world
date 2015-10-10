@@ -25,9 +25,11 @@ public class RecursoTorta extends Recurso<Torta,Long>
         List<Torta> tortas = new ArrayList<Torta>(  );
         for( int i = 0; i < 5; i++) {
             Torta torta = new Torta();
+
             torta.setCobertura( new Cobertura() );
             Piso piso = new Piso();
-            torta.agregarPiso( piso );
+            torta.setBase( piso );
+            piso.setMasa("Marmolada");
             piso.setPrecio( 100d + 3 * i );
             piso.setRelleno( new Relleno() );
             piso.getRelleno().setTipo( "Chocolate" );
@@ -46,7 +48,7 @@ public class RecursoTorta extends Recurso<Torta,Long>
     @Override
     public Response add( Torta entity ) {
         servicioTorta.store( entity );
-        return Response.created( uriInfo.getAbsolutePath() ).build();
+        return Response.created( uriInfo.getAbsolutePathBuilder().path( entity.getId().toString() ).build(  ) ).build();
     }
 
     @Override

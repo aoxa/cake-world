@@ -6,10 +6,11 @@ import com.zuppelli.livingdocs.ConceptoCentral;
  * Seccion horizontal de una torta.
  */
 @ConceptoCentral
-public class Piso
+public class Piso extends Entity
 {
     private double precio;
     private Relleno relleno;
+    private String masa;
 
     public double getPrecio()
     {
@@ -29,5 +30,15 @@ public class Piso
     public void setRelleno( Relleno relleno )
     {
         this.relleno = relleno;
+    }
+
+    public String getMasa()
+    {
+        return masa;
+    }
+
+    public void setMasa( String masa )
+    {
+        this.masa = masa;
     }
 }

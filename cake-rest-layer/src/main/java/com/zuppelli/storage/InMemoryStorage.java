@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by pedro.zuppelli on 07/10/2015.
@@ -13,15 +14,18 @@ import java.util.Map;
 @Component
 public class InMemoryStorage implements Storage{
     private Map<Class<?>, Map<Object, Object>> content = new HashMap<Class<?>, Map<Object, Object>>();
+    private final Random random = new Random(  );
 
     @Override
-    public <T, K> void store( Class<T> clazz, Entity<K> entity, K id ) {
+    public <T> T store( Class<T> clazz, Entity entity ) {
+        entity.setId( Math.abs( random.nextLong() ) );
         Map<Object, Object> map = content.get( clazz );
         if ( null == map  ) {
             map = new HashMap<Object, Object>();
             content.put( clazz, map );
         }
-        content.get( clazz ).put( id, entity );
+        content.get( clazz ).put( entity.getId(), entity );
+        return (T) entity;
     }
 
     @Override

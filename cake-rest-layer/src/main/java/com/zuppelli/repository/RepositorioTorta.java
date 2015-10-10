@@ -6,22 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.Random;
 
 /**
  * Created by pedro.zuppelli on 07/10/2015.
  */
 @Component
 public class RepositorioTorta implements Repository<Torta, Long> {
-    @Autowired
-    private Storage storage;
-
-    private final Random random = new Random(  );
+    @Autowired private Storage storage;
 
     @Override
     public Torta store( Torta entity ) {
-        entity.setId( Math.abs( random.nextLong() ) );
-        storage.store( Torta.class, entity, entity.getId() );
+        storage.store( Torta.class, entity);
 
         return entity;
     }

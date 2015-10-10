@@ -13,11 +13,11 @@ import java.util.List;
  */
 @ConceptoCentral
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Torta implements Entity<Long>
+public class Torta extends Entity
 {
     private final List<Piso> pisos = new ArrayList<Piso>(  );
+    private Piso base;
     private Cobertura cobertura;
-    private Long id;
 
     /**
      * Precio total de la torta.
@@ -49,11 +49,13 @@ public class Torta implements Entity<Long>
         this.pisos.addAll( Arrays.asList(piso) ) ;
     }
 
-    public Long getId() {
-        return id;
+    public Piso getBase()
+    {
+        return base;
     }
 
-    public void setId( Long id ) {
-        this.id = id;
+    public void setBase( Piso base )
+    {
+        this.base = base;
     }
 }

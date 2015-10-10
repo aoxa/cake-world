@@ -43,7 +43,7 @@
 
 	<build>
 		<!-- http://localhost:8080/cake-world-rest/api/application.wadl/ -->
-		<finalName>${project.name}</finalName>
+		<finalName>cake-world-rest</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
