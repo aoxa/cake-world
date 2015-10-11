@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 /**
- * Created by pedro.zuppelli on 07/10/2015.
+ * Created by pedro.com.zuppelli on 07/10/2015.
  */
 @Component
 public class RepositorioTorta implements Repository<Torta, Long> {

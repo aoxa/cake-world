@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created by pedro.zuppelli on 07/10/2015.
+ * Created by pedro.com.zuppelli on 07/10/2015.
  */
 @Component
 public class InMemoryStorage implements Storage{
@@ -18,7 +18,9 @@ public class InMemoryStorage implements Storage{
 
     @Override
     public <T> T store( Class<T> clazz, Entity entity ) {
-        entity.setId( Math.abs( random.nextLong() ) );
+        if( null == entity.getId() ) {
+            entity.setId( Math.abs( random.nextLong() ) );
+        }
         Map<Object, Object> map = content.get( clazz );
         if ( null == map  ) {
             map = new HashMap<Object, Object>();

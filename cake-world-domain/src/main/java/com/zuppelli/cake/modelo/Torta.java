@@ -26,7 +26,17 @@ public class Torta extends Entity
     @ComportamientoCentral
     public double getPrecio( )
     {
-        return 0;
+        double precio = base.getPrecio();
+
+        for( Piso piso : pisos ) {
+            precio += piso.getPrecio();
+        }
+
+        if( null == cobertura ) {
+            precio += cobertura.getPrecio();
+        }
+
+        return precio;
     }
 
     public Cobertura getCobertura()

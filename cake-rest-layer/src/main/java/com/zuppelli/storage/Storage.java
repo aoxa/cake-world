@@ -5,7 +5,7 @@ import com.zuppelli.cake.modelo.Entity;
 import java.util.Collection;
 
 /**
- * Created by pedro.zuppelli on 07/10/2015.
+ * Created by pedro.com.zuppelli on 07/10/2015.
  */
 public interface Storage {
     <T>T store(Class<T> clazz, Entity entity );

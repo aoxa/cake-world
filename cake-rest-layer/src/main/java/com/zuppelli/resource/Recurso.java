@@ -16,33 +16,34 @@ import javax.ws.rs.core.UriInfo;
 import java.util.Collection;
 
 /**
- * Created by pedro.zuppelli on 07/10/2015.
+ * Created by pedro.com.zuppelli on 07/10/2015.
  */
-public abstract class Recurso<T,K> {
+public abstract class Recurso<T, K>
+{
     @Context
     protected UriInfo uriInfo;
     @Context
     protected Request request;
 
     @GET
-    @Produces( MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public abstract Collection<T> get();
 
     @GET
-    @Path( "{id}" )
-    @Produces( MediaType.APPLICATION_JSON)
-    public abstract T get(@PathParam("id") K id);
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public abstract T get( @PathParam("id") K id );
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public abstract Response add(T entity);
+    public abstract Response add( T entity );
 
     @DELETE
-    @Path( "{id}" )
-    public abstract void delete(@PathParam("id") K id);
+    @Path("{id}")
+    public abstract void delete( @PathParam("id") K id );
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public abstract Response update(T entity);
+    public abstract Response update( T entity );
 
 }
