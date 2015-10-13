@@ -31,7 +31,8 @@ public class RecursoCobertura extends Recurso<Cobertura, Long> implements Initia
     @Override
     public Response add( Cobertura entity )
     {
-        return Response.created( uriInfo.getAbsolutePathBuilder().path( entity.getId().toString() ).build() ).build();
+        return Response.created( uriInfo.getAbsolutePathBuilder().path(
+                servicioCobertura.store( entity ).getId().toString() ).build() ).build();
     }
 
     @Override

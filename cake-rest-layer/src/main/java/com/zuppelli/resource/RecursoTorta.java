@@ -1,10 +1,14 @@
 package com.zuppelli.resource;
 
 import com.sun.jersey.api.spring.Autowire;
+import com.zuppelli.cake.config.ConfigHelper;
 import com.zuppelli.cake.modelo.Torta;
 import com.zuppelli.service.Servicio;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
@@ -33,6 +37,13 @@ public class RecursoTorta extends Recurso<Torta,Long>
     @Override
     public void delete( Long id ) {
         servicioTorta.remove( id );
+    }
+
+    @Path( "por_kilo" )
+    @POST
+    @Consumes( MediaType.TEXT_PLAIN )
+    public void configuraPorKilo(String porKilo){
+        ConfigHelper.getInstance().put( ConfigHelper.Keys.PRECIO_POR_KILO, Double.parseDouble( porKilo ) );
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.zuppelli.cake.modelo;
 
+import com.zuppelli.cake.config.ConfigHelper;
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
 
@@ -10,7 +11,6 @@ import com.zuppelli.livingdocs.ConceptoCentral;
 public class Piso extends Entity
 {
     //TODO: Extraer el precio para que sea configurable.
-    public static final int PRECIO_POR_KILO = 107;
     private Relleno relleno;
     private String masa;
     private double peso;
@@ -23,11 +23,15 @@ public class Piso extends Entity
     @ComportamientoCentral
     public double getPrecio()
     {
-        double precio = peso * PRECIO_POR_KILO;
+        double precio = peso * getPrecioPorKilo();
         if( null != relleno ) {
             precio += relleno.getPrecio();
         }
         return precio;
+    }
+
+    private Double getPrecioPorKilo() {
+        return ConfigHelper.getInstance().get( ConfigHelper.Keys.PRECIO_POR_KILO );
     }
 
     public Relleno getRelleno()
