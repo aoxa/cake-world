@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Component
+@Deprecated
 public class RepositorioCobertura implements Repository<Cobertura, Long>
 {
     @Autowired private Storage storage;

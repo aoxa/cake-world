@@ -12,6 +12,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import java.util.Collection;
 
@@ -20,10 +21,9 @@ import java.util.Collection;
  */
 public abstract class Recurso<T, K>
 {
-    @Context
-    protected UriInfo uriInfo;
-    @Context
-    protected Request request;
+    @Context protected SecurityContext securityContext;
+    @Context protected UriInfo uriInfo;
+    @Context protected Request request;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

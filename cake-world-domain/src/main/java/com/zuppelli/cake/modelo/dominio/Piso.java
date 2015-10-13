@@ -1,6 +1,7 @@
-package com.zuppelli.cake.modelo;
+package com.zuppelli.cake.modelo.dominio;
 
 import com.zuppelli.cake.config.ConfigHelper;
+import com.zuppelli.cake.modelo.Entity;
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;

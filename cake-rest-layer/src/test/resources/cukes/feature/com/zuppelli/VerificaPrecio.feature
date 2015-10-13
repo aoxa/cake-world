@@ -38,7 +38,7 @@ Característica: Verifica Precio
       |       relleno     | relleno_precio   | kilo | per_kilo |   precio |
       | test_chocolate    |        20        |  1   |   30     |    50    |
       | test_chocolate    |        20        |  2   |   30     |    80    |
-      | test_chocolate    |        15        |  2   |   30     |    75   |
+      | test_merengues    |        15        |  2   |   30     |    75   |
 
 
   Esquema del escenario: Prueba de precio por kilo, con relleno y cobertura.
@@ -53,4 +53,4 @@ Característica: Verifica Precio
     |    cobertura      | cobertura_precio |       relleno     | relleno_precio   | kilo | per_kilo |   precio |
     | test_chispas      |         15       | test_chocolate    |        20        |  1   |   30     |    65    |
     | test_chispas      |         15       | test_chocolate    |        20        |  2   |   30     |    95    |
-    | test_pasta        |         25       | test_chocolate    |        15        |  2   |   30     |    100   |
+    | test_pasta        |         25       | test_merengues    |        15        |  2   |   30     |    100   |

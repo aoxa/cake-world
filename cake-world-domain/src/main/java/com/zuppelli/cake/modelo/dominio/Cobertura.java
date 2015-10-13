@@ -1,13 +1,14 @@
-package com.zuppelli.cake.modelo;
+package com.zuppelli.cake.modelo.dominio;
 
+import com.zuppelli.cake.modelo.Entity;
 import com.zuppelli.livingdocs.ConceptoCentral;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
- * Ingrediente que va en el centro de un piso de una torta.
+ * Lamina de distintos tipos de ingredientes que cubre una torta.
  */
 @ConceptoCentral
-public class Relleno extends Entity
+public class Cobertura extends Entity
 {
     private String tipo;
 
@@ -24,11 +25,13 @@ public class Relleno extends Entity
         this.tipo = tipo;
     }
 
-    public Long getPrecio() {
-        return this.precio;
+    public Long getPrecio()
+    {
+        return precio;
     }
 
-    public void setPrecio( Long precio ) {
+    public void setPrecio( Long precio )
+    {
         this.precio = precio;
     }
 }

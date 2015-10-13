@@ -14,7 +14,6 @@ import java.util.Collection;
 @Component
 public class RecursoRelleno extends Recurso<Relleno, Long> implements InitializingBean
 {
-
     @Autowired private Servicio<Relleno> servicioRelleno;
 
     @Override

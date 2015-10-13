@@ -1,4 +1,4 @@
-package com.zuppelli.cake.comercio.descuento;
+package com.zuppelli.cake.modelo.comercio.descuento;
 
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;

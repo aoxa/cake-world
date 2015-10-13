@@ -11,6 +11,7 @@ import java.util.Collection;
  * Created by pedro.com.zuppelli on 07/10/2015.
  */
 @Component
+@Deprecated
 public class RepositorioTorta implements Repository<Torta, Long> {
     @Autowired private Storage storage;
 

@@ -1,4 +1,4 @@
-package com.zuppelli.cake.comercio.descuento;
+package com.zuppelli.cake.modelo.comercio.descuento;
 
 /**
  * Aplica una sola vez para todos los clientes, en la primer compra.

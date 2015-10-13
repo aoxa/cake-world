@@ -1,15 +1,18 @@
-package com.zuppelli.cake.comercio;
+package com.zuppelli.cake.modelo.comercio;
 
 import com.zuppelli.livingdocs.ReemplazadoPor;
 
 /**
- * ??AA
+ * Carrito con cupon de descuento.
  */
 @Deprecated
 @ReemplazadoPor( referencia = Carrito.class, razon = "Se aplica el patron Strategy en el carrito, por lo que esta clase queda redundante." )
-public class CarritoDescuentoPrimeraCompra extends Carrito
+public class CarritoDescuentoCupon extends Carrito
 {
+    private Cupon cupon;
+
     public double getPrecio() {
-        return super.getPrecio() * 0.8;
+        return super.getPrecio() * cupon.getDescuento();
     }
+
 }

@@ -1,6 +1,6 @@
-package com.zuppelli.cake.comercio.descuento;
+package com.zuppelli.cake.modelo.comercio.descuento;
 
-import com.zuppelli.cake.comercio.Cupon;
+import com.zuppelli.cake.modelo.comercio.Cupon;
 
 /**
  * Aplica el descuento utilizando un cupon.

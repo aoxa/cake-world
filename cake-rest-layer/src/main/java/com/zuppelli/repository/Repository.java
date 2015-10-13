@@ -5,6 +5,7 @@ import java.util.Collection;
 /**
 
  */
+@Deprecated
 public interface Repository<T, K> {
     T store(T entity);
     void remove(K identifier);

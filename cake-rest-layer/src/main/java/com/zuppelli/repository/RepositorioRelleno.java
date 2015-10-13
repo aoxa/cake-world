@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Component
+@Deprecated
 public class RepositorioRelleno implements Repository<Relleno, Long>
 {
     @Autowired private Storage storage;

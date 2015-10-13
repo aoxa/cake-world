@@ -1,4 +1,4 @@
-package com.zuppelli.cake.modelo;
+package com.zuppelli.cake.modelo.dominio;
 
 import com.zuppelli.livingdocs.ReemplazadoPor;
 

@@ -1,9 +1,9 @@
-package com.zuppelli.cake.comercio;
+package com.zuppelli.cake.modelo.comercio;
 
 import com.zuppelli.livingdocs.ConceptoCentral;
 
 /**
- * Codigo que representa un descuento para una compra.
+ * Codigo que representa un descuento para una compra. Consta de un codigo y un porcentaje.
  */
 @ConceptoCentral
 public class Cupon
