@@ -32,8 +32,10 @@ public class RecursoRelleno extends Recurso<Relleno, Long> implements Initializi
     @Override
     public Response add( Relleno entity )
     {
-        return Response.created( uriInfo.getAbsolutePathBuilder().path(
-                servicioRelleno.store( entity ).getId().toString() ).build() ).build();
+        entity = servicioRelleno.store( entity );
+        return Response.created( uriInfo.getAbsolutePathBuilder()
+                                         .path( entity.getId().toString() ).build() )
+                       .entity( entity.getId().toString() ).build();
     }
 
     @Override

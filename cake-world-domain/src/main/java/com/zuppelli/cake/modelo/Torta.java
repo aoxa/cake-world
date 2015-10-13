@@ -32,7 +32,7 @@ public class Torta extends Entity
             precio += piso.getPrecio();
         }
 
-        if( null == cobertura ) {
+        if( null != cobertura ) {
             precio += cobertura.getPrecio();
         }
 

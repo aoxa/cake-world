@@ -10,6 +10,7 @@ public class HttpClientHelper {
     public static final String RECURSO_COBERTURA = "http://localhost:8080/cake-world-rest/api/cobertura/";
     public static final String RECURSO_RELLENO = "http://localhost:8080/cake-world-rest/api/relleno/";
     public static final String RECURSO_TORTA = "http://localhost:8080/cake-world-rest/api/torta/";
+    public static final String RECURSO_TORTA_POR_KILO = "http://localhost:8080/cake-world-rest/api/torta/por_kilo";
 
     public static HttpPost postStringEntity( String url, Object body ) throws UnsupportedEncodingException {
         return postStringEntity( url, body, MediaType.APPLICATION_JSON );

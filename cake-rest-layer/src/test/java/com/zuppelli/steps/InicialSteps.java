@@ -4,6 +4,9 @@ import com.zuppelli.helper.HttpClientHelper;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.es.Cuando;
+import cucumber.api.java.es.Dado;
+import cucumber.api.java.es.Entonces;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -26,12 +29,14 @@ public class InicialSteps {
     private String location;
 
     @Given( "^I am a user with an empty cart$" )
+    @Dado("^que soy un usuario con el carrito vacio$")
     public void empty_cart() {
         client = HttpClients.createDefault();
         logger.info( "Empty cart" );
     }
 
     @When( "^I order a two stories high cake$" )
+    @Cuando( "^quiero ordenar una torta de dos pisos$" )
     public void two_stories_cake() throws JSONException, IOException {
         logger.info( "Two stories cake" );
 
@@ -46,6 +51,7 @@ public class InicialSteps {
     }
 
     @Then( "^I should enter the base filling$" )
+    @Entonces("^Debo ingresar el relleno$")
     public void i_should_enter_the_base_filling() throws Throwable {
         JSONObject base = new JSONObject().put( "masa", "Marmolada" ).put( "relleno", relleno ).put( "peso", 3 );
         torta = new JSONObject().put( "base", base ).put( "cobertura", cobertura );
@@ -59,6 +65,7 @@ public class InicialSteps {
     }
 
     @Then( "^I should enter a new floor$" )
+    @Entonces("^Debo ingresar un piso$")
     public void i_should_enter_a_new_floor() throws Throwable {
         JSONObject piso = new JSONObject().put( "masa", "Vainilla" ).put( "relleno", relleno ).put( "peso", 2.5 );
         HttpResponse response = client.execute( HttpClientHelper.postStringEntity( location + "/piso", piso ) );

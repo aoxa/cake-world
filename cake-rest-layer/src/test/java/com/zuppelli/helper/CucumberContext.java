@@ -18,13 +18,13 @@ public class CucumberContext {
     private final ObjectMapper objectMapper;
 
     private CucumberContext() {
-        content = new HashMap<>(  );
+        content = new HashMap<>();
         client = HttpClients.createDefault();
-        objectMapper = new ObjectMapper(  );
+        objectMapper = new ObjectMapper();
     }
 
     public static CucumberContext getInstance() {
-        if( null == instance )
+        if ( null == instance )
             instance = new CucumberContext();
         return instance;
     }
@@ -33,8 +33,8 @@ public class CucumberContext {
         this.content.put( key, value );
     }
 
-    public <T> T get(String key) {
-        return (T) this.content.get( key );
+    public <T> T get( String key ) {
+        return ( T ) this.content.get( key );
     }
 
     public void reset() {
@@ -55,5 +55,11 @@ public class CucumberContext {
         post.setEntity( new StringEntity( body.toString() ) );
         post.setHeader( "Content-Type", MediaType.APPLICATION_JSON );
         return post;
+    }
+
+    public interface ContentKeys {
+        String RELLENO_BASE = "relleno-base";
+        String COBERTURA_BASE = "cobertura-base";
+        String TORTA_URL = "torta-url";
     }
 }

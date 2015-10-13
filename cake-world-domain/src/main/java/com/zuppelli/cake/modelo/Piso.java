@@ -3,14 +3,15 @@ package com.zuppelli.cake.modelo;
 import com.zuppelli.cake.config.ConfigHelper;
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * Seccion horizontal de una torta.
  */
 @ConceptoCentral
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Piso extends Entity
 {
-    //TODO: Extraer el precio para que sea configurable.
     private Relleno relleno;
     private String masa;
     private double peso;
