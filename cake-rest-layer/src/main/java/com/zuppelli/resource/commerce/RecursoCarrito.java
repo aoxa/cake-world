@@ -1,19 +1,23 @@
 package com.zuppelli.resource.commerce;
 
 import com.sun.jersey.api.spring.Autowire;
+import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.cake.modelo.comercio.Carrito;
 import com.zuppelli.resource.Recurso;
 import com.zuppelli.service.ServicioCarrito;
 import com.zuppelli.service.ServicioUsuario;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
 @Path( "/commerce/user/{userId}/carrito" )
 @Autowire
-public class RecursoCarrito extends Recurso<Carrito, Long>{
+public class RecursoCarrito extends Recurso<Carrito>{
     @PathParam( "userId" )
     private Long userId;
 
@@ -34,6 +38,16 @@ public class RecursoCarrito extends Recurso<Carrito, Long>{
     @Override
     public Response add( Carrito entity ) {
         String id = servicioCarrito.store( entity ).getId().toString();
+        servicioUsuario.get(userId).addCarrito( entity );
+        return Response.created( uriInfo.getAbsolutePathBuilder().path( id ).build(  ) ).entity( id ).build();
+    }
+
+    @Path( "{carritoId}/torta" )
+    @POST
+    @Consumes( MediaType.APPLICATION_JSON  )
+    public Response add( @PathParam( "carritoId" )Long carritoId, Torta entity ) {
+        servicioCarrito.get( carritoId ).addContenido( entity );
+        String id = carritoId.toString();
         return Response.created( uriInfo.getAbsolutePathBuilder().path( id ).build(  ) ).entity( id ).build();
     }
 

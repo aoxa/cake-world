@@ -8,4 +8,13 @@ public class ServicioUsuario extends ServicioGenerico<Usuario> {
     public ServicioUsuario() {
         super(Usuario.class);
     }
+
+    public Usuario get( String login ) {
+        for( Usuario usuario : this.get() ) {
+            if( usuario.getLogin().equals( login ) ) {
+                return usuario;
+            }
+        }
+        return null;
+    }
 }

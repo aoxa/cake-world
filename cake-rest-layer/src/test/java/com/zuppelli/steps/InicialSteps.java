@@ -68,7 +68,7 @@ public class InicialSteps {
     @Entonces("^Debo ingresar un piso$")
     public void i_should_enter_a_new_floor() throws Throwable {
         JSONObject piso = new JSONObject().put( "masa", "Vainilla" ).put( "relleno", relleno ).put( "peso", 2.5 );
-        HttpResponse response = client.execute( HttpClientHelper.postStringEntity( location + "/piso", piso ) );
+        HttpResponse response = client.execute( HttpClientHelper.postStringEntity( location + "/piso", piso.toString() ) );
         logger.info( response.getFirstHeader( "Location" ).getValue() );
     }
 }

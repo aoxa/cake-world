@@ -5,7 +5,11 @@ import com.zuppelli.cake.modelo.comercio.Usuario;
 import com.zuppelli.resource.Recurso;
 import com.zuppelli.service.ServicioUsuario;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
@@ -14,7 +18,7 @@ import java.util.Collection;
  */
 @Path( "/commerce/user" )
 @Autowire
-public class RecursoUsuario extends Recurso<Usuario, Long> {
+public class RecursoUsuario extends Recurso<Usuario> {
     private ServicioUsuario servicioUsuario;
 
     @Override
@@ -24,14 +28,21 @@ public class RecursoUsuario extends Recurso<Usuario, Long> {
 
     @Override
     public Usuario get( Long id ) {
-        return servicioUsuario.get(id);
+        return servicioUsuario.get( id );
+    }
+
+    @Path( "login/{username}" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public Usuario get( @PathParam( "username" ) String username ) {
+        return servicioUsuario.get( username );
     }
 
     @Override
     public Response add( Usuario entity ) {
         String id = servicioUsuario.store( entity ).getId().toString();
 
-        return Response.created( uriInfo.getAbsolutePathBuilder().path( id ).build(  ) ).entity( id ).build();
+        return Response.created( uriInfo.getAbsolutePathBuilder().path( id ).build() ).entity( id ).build();
     }
 
     @Override

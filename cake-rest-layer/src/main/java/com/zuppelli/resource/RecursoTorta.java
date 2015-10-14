@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @Path( "/torta" )
 @Autowire
-public class RecursoTorta extends Recurso<Torta,Long>
+public class RecursoTorta extends Recurso<Torta>
 {
     private Servicio<Torta> servicioTorta;
 

@@ -12,7 +12,7 @@ import java.util.Collection;
 
 @Path( "/relleno" )
 @Component
-public class RecursoRelleno extends Recurso<Relleno, Long> implements InitializingBean
+public class RecursoRelleno extends Recurso<Relleno> implements InitializingBean
 {
     @Autowired private Servicio<Relleno> servicioRelleno;
 

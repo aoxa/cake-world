@@ -1,6 +1,7 @@
 package com.zuppelli.pasos;
 
 import com.zuppelli.helper.CucumberContext;
+import cucumber.api.PendingException;
 import cucumber.api.java.es.Entonces;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -22,4 +23,11 @@ public class PasosEntonces {
         Double actual = result.getDouble( "precio" );
         assertEquals( "Los valores esperado y el corriente son distintos.", esperado, actual );
     }
+
+    @Entonces("^debo pagar en el carrito '(\\d+)'$")
+    public void debo_pagar_en_el_carrito(int arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
 }

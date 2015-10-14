@@ -4,6 +4,7 @@ import com.zuppelli.cake.modelo.Entity;
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,11 @@ import java.util.List;
 public class Usuario extends Entity {
     private String login;
     private String email;
-    private List<Carrito> carritos;
+    private final List<Carrito> carritos;
+
+    public Usuario() {
+        carritos = new ArrayList<Carrito>(  );
+    }
 
     public String getEmail() {
         return email;
@@ -42,6 +47,11 @@ public class Usuario extends Entity {
     }
 
     public void setCarritos( List<Carrito> carritos ) {
-        this.carritos = carritos;
+        this.carritos.clear();
+        this.carritos.addAll( carritos );
+    }
+
+    public void addCarrito( Carrito carrito ) {
+        this.carritos.add( carrito );
     }
 }

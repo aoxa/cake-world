@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @Path( "/torta/{tortaId}/piso" )
 @Autowire
-public class RecursoPiso extends Recurso<Piso, Long> {
+public class RecursoPiso extends Recurso<Piso> {
 
     @PathParam( "tortaId" )
     private Long tortaId;
