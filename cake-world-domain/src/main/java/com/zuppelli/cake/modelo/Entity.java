@@ -1,7 +1,5 @@
 package com.zuppelli.cake.modelo;
 
-
-
 public abstract class Entity {
     private Long id;
 

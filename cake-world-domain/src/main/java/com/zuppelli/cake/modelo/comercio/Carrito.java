@@ -15,7 +15,7 @@ import java.util.List;
 @ConceptoCentral
 public class Carrito extends Entity
 {
-    private List<Torta> contenido;
+    private final List<Torta> contenido;
     private Descuento descuento;
 
     public Carrito()
