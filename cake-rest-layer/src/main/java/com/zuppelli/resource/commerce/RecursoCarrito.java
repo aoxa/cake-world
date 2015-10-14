@@ -3,6 +3,7 @@ package com.zuppelli.resource.commerce;
 import com.sun.jersey.api.spring.Autowire;
 import com.zuppelli.cake.modelo.comercio.Carrito;
 import com.zuppelli.resource.Recurso;
+import com.zuppelli.service.ServicioCarrito;
 import com.zuppelli.service.ServicioUsuario;
 
 import javax.ws.rs.Path;
@@ -17,6 +18,7 @@ public class RecursoCarrito extends Recurso<Carrito, Long>{
     private Long userId;
 
     private ServicioUsuario servicioUsuario;
+    private ServicioCarrito servicioCarrito;
 
 
     @Override
@@ -26,21 +28,31 @@ public class RecursoCarrito extends Recurso<Carrito, Long>{
 
     @Override
     public Carrito get( Long id ) {
-        return null;
+        return servicioCarrito.get( id );
     }
 
     @Override
     public Response add( Carrito entity ) {
-        return null;
+        String id = servicioCarrito.store( entity ).getId().toString();
+        return Response.created( uriInfo.getAbsolutePathBuilder().path( id ).build(  ) ).entity( id ).build();
     }
 
     @Override
     public void delete( Long id ) {
-
+        servicioCarrito.remove( id );
     }
 
     @Override
     public Response update( Carrito entity ) {
-        return null;
+        String id = servicioCarrito.store( entity ).getId().toString();
+        return Response.ok( uriInfo.getAbsolutePathBuilder().path( id ).build(  ) ).entity( id ).build();
+    }
+
+    public void setServicioCarrito( ServicioCarrito servicioCarrito ) {
+        this.servicioCarrito = servicioCarrito;
+    }
+
+    public void setServicioUsuario( ServicioUsuario servicioUsuario ) {
+        this.servicioUsuario = servicioUsuario;
     }
 }
