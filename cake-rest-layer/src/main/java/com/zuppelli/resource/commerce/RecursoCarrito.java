@@ -1,8 +1,9 @@
 package com.zuppelli.resource.commerce;
 
 import com.sun.jersey.api.spring.Autowire;
-import com.zuppelli.cake.comercio.Carrito;
+import com.zuppelli.cake.modelo.comercio.Carrito;
 import com.zuppelli.resource.Recurso;
+import com.zuppelli.service.ServicioUsuario;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -13,11 +14,14 @@ import java.util.Collection;
 @Autowire
 public class RecursoCarrito extends Recurso<Carrito, Long>{
     @PathParam( "userId" )
-    private Long tortaId;
+    private Long userId;
+
+    private ServicioUsuario servicioUsuario;
+
 
     @Override
     public Collection<Carrito> get() {
-        return null;
+        return servicioUsuario.get( userId ).getCarritos();
     }
 
     @Override

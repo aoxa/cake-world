@@ -1,9 +1,9 @@
 package com.zuppelli.pasos;
 
-import com.zuppelli.cake.modelo.Cobertura;
-import com.zuppelli.cake.modelo.Piso;
-import com.zuppelli.cake.modelo.Relleno;
-import com.zuppelli.cake.modelo.Torta;
+import com.zuppelli.cake.modelo.dominio.Cobertura;
+import com.zuppelli.cake.modelo.dominio.Piso;
+import com.zuppelli.cake.modelo.dominio.Relleno;
+import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.helper.CucumberContext;
 import com.zuppelli.helper.HttpClientHelper;
 import cucumber.api.java.es.Cuando;

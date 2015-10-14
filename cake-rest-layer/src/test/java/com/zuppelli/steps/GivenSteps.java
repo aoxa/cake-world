@@ -1,7 +1,7 @@
 package com.zuppelli.steps;
 
-import com.zuppelli.cake.modelo.Cobertura;
-import com.zuppelli.cake.modelo.Relleno;
+import com.zuppelli.cake.modelo.dominio.Cobertura;
+import com.zuppelli.cake.modelo.dominio.Relleno;
 import com.zuppelli.helper.CucumberContext;
 import com.zuppelli.helper.HttpClientHelper;
 import cucumber.api.java.en.Given;

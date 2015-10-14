@@ -1,6 +1,6 @@
 package com.zuppelli.resource;
 
-import com.zuppelli.cake.modelo.Cobertura;
+import com.zuppelli.cake.modelo.dominio.Cobertura;
 import com.zuppelli.service.Servicio;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

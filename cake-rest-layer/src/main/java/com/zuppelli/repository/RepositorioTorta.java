@@ -1,6 +1,6 @@
 package com.zuppelli.repository;
 
-import com.zuppelli.cake.modelo.Torta;
+import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.storage.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

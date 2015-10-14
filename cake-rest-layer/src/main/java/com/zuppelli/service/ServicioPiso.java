@@ -1,7 +1,7 @@
 package com.zuppelli.service;
 
-import com.zuppelli.cake.modelo.Piso;
-import com.zuppelli.cake.modelo.Relleno;
+import com.zuppelli.cake.modelo.dominio.Piso;
+import com.zuppelli.cake.modelo.dominio.Relleno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

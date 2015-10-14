@@ -1,7 +1,7 @@
 package com.zuppelli.pasos;
 
-import com.zuppelli.cake.modelo.Cobertura;
-import com.zuppelli.cake.modelo.Relleno;
+import com.zuppelli.cake.modelo.dominio.Cobertura;
+import com.zuppelli.cake.modelo.dominio.Relleno;
 import com.zuppelli.helper.CucumberContext;
 import com.zuppelli.helper.HttpClientHelper;
 import cucumber.api.java.es.Dado;
@@ -54,7 +54,7 @@ public class PasosDado {
     }
 
     @Dado( "^un costo por kilo de '(.+)'$" )
-    public void i_am_a_user_using_cobertura_and_relleno( String porKilo ) throws Throwable {
+    public void costo_por_kilo( String porKilo ) throws Throwable {
         HttpResponse response = client.execute( HttpClientHelper
                                                         .postStringEntity( HttpClientHelper.RECURSO_TORTA_POR_KILO,
                                                                            porKilo, MediaType.TEXT_PLAIN ) );

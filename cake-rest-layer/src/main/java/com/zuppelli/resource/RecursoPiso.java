@@ -1,8 +1,8 @@
 package com.zuppelli.resource;
 
 import com.sun.jersey.api.spring.Autowire;
-import com.zuppelli.cake.modelo.Piso;
-import com.zuppelli.cake.modelo.Relleno;
+import com.zuppelli.cake.modelo.dominio.Piso;
+import com.zuppelli.cake.modelo.dominio.Relleno;
 import com.zuppelli.service.Servicio;
 import com.zuppelli.service.ServicioTorta;
 

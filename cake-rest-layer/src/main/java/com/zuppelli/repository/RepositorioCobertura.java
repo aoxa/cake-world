@@ -1,6 +1,6 @@
 package com.zuppelli.repository;
 
-import com.zuppelli.cake.modelo.Cobertura;
+import com.zuppelli.cake.modelo.dominio.Cobertura;
 import com.zuppelli.storage.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

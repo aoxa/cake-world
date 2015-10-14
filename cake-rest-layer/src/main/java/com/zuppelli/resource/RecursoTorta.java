@@ -2,7 +2,7 @@ package com.zuppelli.resource;
 
 import com.sun.jersey.api.spring.Autowire;
 import com.zuppelli.cake.config.ConfigHelper;
-import com.zuppelli.cake.modelo.Torta;
+import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.service.Servicio;
 
 import javax.ws.rs.Consumes;
@@ -47,7 +47,7 @@ public class RecursoTorta extends Recurso<Torta,Long>
     }
 
     @Override
-    public Response update( com.zuppelli.cake.modelo.Torta entity ) {
+    public Response update( Torta entity ) {
         return Response.created( uriInfo.getAbsolutePath() ).entity( servicioTorta.store( entity ) ).build();
     }
 

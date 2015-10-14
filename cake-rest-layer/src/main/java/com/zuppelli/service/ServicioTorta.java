@@ -1,33 +1,24 @@
 package com.zuppelli.service;
 
-import com.zuppelli.cake.modelo.Cobertura;
-import com.zuppelli.cake.modelo.Piso;
-import com.zuppelli.cake.modelo.Torta;
-import com.zuppelli.repository.Repository;
+import com.zuppelli.cake.modelo.dominio.Cobertura;
+import com.zuppelli.cake.modelo.dominio.Piso;
+import com.zuppelli.cake.modelo.dominio.Torta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 /**
  *
  */
 @Service
-public class ServicioTorta implements Servicio<Torta>
+public class ServicioTorta extends ServicioGenerico<Torta>
 {
-    @Autowired private Repository<Torta, Long> repositorioTorta;
     @Autowired private Servicio<Piso> servicioPiso;
     @Autowired private Servicio<Cobertura> servicioCobertura;
 
-    @Override
-    public Torta get( Long id ) {
-        return repositorioTorta.retrieve( id );
-    }
-
-    @Override
-    public Collection<Torta> get() {
-        return repositorioTorta.retrieve();
+    public ServicioTorta() {
+        super(Torta.class);
     }
 
     @Override
@@ -51,21 +42,16 @@ public class ServicioTorta implements Servicio<Torta>
             }
         }
 
-        return repositorioTorta.store( torta );
-    }
-
-    @Override
-    public void remove( Long id ) {
-        repositorioTorta.remove( id );
+        return super.store( torta );
     }
 
     public void agregarPiso(Long tortaId, Piso piso ) {
-        repositorioTorta.retrieve( tortaId ).agregarPiso( piso );
+        super.get( tortaId ).agregarPiso( piso );
     }
 
     public void removerPiso( Long tortaId, Long pisoId ) {
         servicioPiso.remove( pisoId );
-        removerPisoDeTorta( repositorioTorta.retrieve( tortaId ), pisoId );
+        removerPisoDeTorta( super.get( tortaId ), pisoId );
     }
 
     private void removerPisoDeTorta( Torta torta, Long pisoId )
