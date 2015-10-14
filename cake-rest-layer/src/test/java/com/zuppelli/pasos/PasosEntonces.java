@@ -1,11 +1,9 @@
 package com.zuppelli.pasos;
 
 import com.zuppelli.helper.CucumberContext;
-import cucumber.api.PendingException;
+import com.zuppelli.helper.HttpClientHelper;
 import cucumber.api.java.es.Entonces;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.util.EntityUtils;
 import org.codehaus.jettison.json.JSONObject;
 
 import static org.junit.Assert.assertEquals;
@@ -18,16 +16,24 @@ public class PasosEntonces {
     public void debo_pagar(Double esperado) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         String location = CucumberContext.getInstance().get( CucumberContext.ContentKeys.TORTA_URL );
-        HttpResponse response = CucumberContext.getInstance().getClient().execute( new HttpGet( location ) );
-        JSONObject result = new JSONObject( EntityUtils.toString( response.getEntity() ) );
+        HttpClientHelper.Response response = HttpClientHelper.execute( new HttpGet( location ) );
+        JSONObject result = new JSONObject( response.getEntity() );
         Double actual = result.getDouble( "precio" );
         assertEquals( "Los valores esperado y el corriente son distintos.", esperado, actual );
     }
 
-    @Entonces("^debo pagar en el carrito '(\\d+)'$")
-    public void debo_pagar_en_el_carrito(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @Entonces("^debo pagar '(\\d+)' en el carrito con descuento '(.+)'$")
+    public void debo_pagar_en_el_carrito( Double precio, String descuento ) throws Throwable {
+        Double esperado = precio * (1-Double.parseDouble( descuento ) );
+        CucumberContext context = CucumberContext.getInstance();
+
+        HttpClientHelper.Response response = HttpClientHelper
+                                        .execute( new HttpGet( context.get( CucumberContext.ContentKeys.CARRITO_URL )
+                                                                       .toString() ) );
+        JSONObject object = new JSONObject( response.getEntity() );
+        Double corriente = object.getDouble( "precio" );
+
+        assertEquals( "El precio esperado no es el recuperado.", esperado, corriente );
     }
 
 }

@@ -1,6 +1,7 @@
 package com.zuppelli.resource.commerce;
 
 import com.sun.jersey.api.spring.Autowire;
+import com.zuppelli.cake.modelo.comercio.descuento.NuevoCliente;
 import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.cake.modelo.comercio.Carrito;
 import com.zuppelli.resource.Recurso;
@@ -32,7 +33,12 @@ public class RecursoCarrito extends Recurso<Carrito>{
 
     @Override
     public Carrito get( Long id ) {
-        return servicioCarrito.get( id );
+        Carrito carrito = servicioCarrito.get( id );
+        if ( null != carrito && get().size() == 1 ) {
+            carrito.setDescuento( new NuevoCliente() );
+        }
+
+        return carrito;
     }
 
     @Override

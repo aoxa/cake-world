@@ -8,9 +8,7 @@ import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.helper.CucumberContext;
 import com.zuppelli.helper.HttpClientHelper;
 import cucumber.api.java.es.Cuando;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.util.EntityUtils;
 
 /**
  * Created by pedro.zuppelli on 13/10/2015.
@@ -27,27 +25,27 @@ public class PasosCuando {
         piso.setPeso( kilo );
         torta.setBase( piso );
         CucumberContext context = CucumberContext.getInstance();
-        HttpResponse response = context.getClient()
-                                        .execute( HttpClientHelper.postStringEntity( HttpClientHelper.RECURSO_TORTA,
-                                                                                      torta ) );
+        HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper
+                                                                  .postStringEntity( HttpClientHelper.RECURSO_TORTA,
+                                                                                     torta ) );
         CucumberContext.getInstance()
-                .add( CucumberContext.ContentKeys.TORTA_URL, response.getFirstHeader( "Location" ).getValue() );
+                .add( CucumberContext.ContentKeys.TORTA_URL, response.getClosedResponse().getFirstHeader( "Location" ).getValue() );
     }
 
     @Cuando("^la agrego al carrito$")
     public void la_agrego_al_carrito() throws Throwable {
         CucumberContext context = CucumberContext.getInstance();
         String location = context.get( CucumberContext.ContentKeys.TORTA_URL );
-        HttpResponse response = context.getClient().execute( new HttpGet( location ) );
+        HttpClientHelper.Response response = HttpClientHelper.execute( new HttpGet( location ) );
         Torta torta = context.getObjectMapper()
-                              .readValue( EntityUtils.toString( response.getEntity() ), Torta.class );
+                              .readValue( response.getEntity(), Torta.class );
         Carrito carrito = new Carrito();
         carrito.addContenido( torta );
-        response = context.getClient()
-                .execute( HttpClientHelper
-                                  .postStringEntity( String.format( HttpClientHelper.RECURSO_CARRITO_USUARIO,
-                                                                    context.get( CucumberContext.ContentKeys.USER_ID ) ),
-                                                     carrito ) );
+        response = HttpClientHelper.execute( HttpClientHelper
+                                                     .postStringEntity( String.format( HttpClientHelper.RECURSO_CARRITO_USUARIO,
+                                                                                       context.get( CucumberContext.ContentKeys.USER_ID ) ),
+                                                                        carrito ) );
+        context.add( CucumberContext.ContentKeys.CARRITO_URL, response.getClosedResponse().getFirstHeader( "Location" ).getValue() );
 
     }
 }

@@ -8,9 +8,7 @@ import com.zuppelli.helper.HttpClientHelper;
 import cucumber.api.java.Before;
 import cucumber.api.java.es.Dado;
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.util.EntityUtils;
 
 import javax.ws.rs.core.MediaType;
 import java.util.logging.Logger;
@@ -41,10 +39,10 @@ public class PasosDado {
         cbt.setTipo( cobertura );
         cbt.setPrecio( coberturaPrecio );
 
-        HttpResponse response = client.execute( HttpClientHelper.postStringEntity( HttpClientHelper.RECURSO_COBERTURA,
+        HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper.postStringEntity( HttpClientHelper.RECURSO_COBERTURA,
                                                                                    context.getObjectMapper()
                                                                                            .writeValueAsString( cbt ) ) );
-        cbt.setId( Long.parseLong( EntityUtils.toString( response.getEntity() ) ) );
+        cbt.setId( Long.parseLong( response.getEntity() ) );
         context.add( CucumberContext.ContentKeys.COBERTURA_BASE, cbt );
     }
 
@@ -54,16 +52,16 @@ public class PasosDado {
         rel.setTipo( relleno );
         rel.setPrecio( rellenoPrecio );
 
-        HttpResponse response = client.execute( HttpClientHelper.postStringEntity( HttpClientHelper.RECURSO_RELLENO,
+        HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper.postStringEntity( HttpClientHelper.RECURSO_RELLENO,
                                                                                    context.getObjectMapper()
                                                                                            .writeValueAsString( rel ) ) );
-        rel.setId( Long.parseLong( EntityUtils.toString( response.getEntity() ) ) );
+        rel.setId( Long.parseLong( response.getEntity() ) );
         context.add( CucumberContext.ContentKeys.RELLENO_BASE, rel );
     }
 
     @Dado( "^un costo por kilo de '(.+)'$" )
     public void costo_por_kilo( String porKilo ) throws Throwable {
-        HttpResponse response = client.execute( HttpClientHelper
+        HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper
                                                         .postStringEntity( HttpClientHelper.RECURSO_TORTA_POR_KILO,
                                                                            porKilo, MediaType.TEXT_PLAIN ) );
 
@@ -75,11 +73,10 @@ public class PasosDado {
         Usuario usuario = new Usuario();
         usuario.setLogin( login );
         usuario.setEmail( login + "@mail.com" );
-        HttpResponse response = client.execute( HttpClientHelper
-                                                        .postStringEntity( HttpClientHelper.RECURSO_USUARIO,
-                                                                           context.getObjectMapper()
-                                                                                   .writeValueAsString( usuario ) ) );
-        context.add( CucumberContext.ContentKeys.USER_ID, EntityUtils.toString( response.getEntity() ) );
+        HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper
+                                                                  .postStringEntity( HttpClientHelper.RECURSO_USUARIO,
+                                                                                     usuario ) );
+        context.add( CucumberContext.ContentKeys.USER_ID, response.getEntity() );
     }
 
 
