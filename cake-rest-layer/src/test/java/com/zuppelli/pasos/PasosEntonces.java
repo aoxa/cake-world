@@ -36,4 +36,17 @@ public class PasosEntonces {
         assertEquals( "El precio esperado no es el recuperado.", esperado, corriente );
     }
 
+    @Entonces("^debo pagar '(\\d+)' en el carrito$")
+    public void debo_pagar_en_el_carrito(Double esperado) throws Throwable {
+        CucumberContext context = CucumberContext.getInstance();
+
+        HttpClientHelper.Response response = HttpClientHelper
+                .execute( new HttpGet( context.get( CucumberContext.ContentKeys.CARRITO_URL )
+                        .toString() ) );
+        JSONObject object = new JSONObject( response.getEntity() );
+        Double corriente = object.getDouble( "precio" );
+
+        assertEquals( "El precio esperado no es el recuperado.", esperado, corriente );
+    }
+
 }

@@ -9,14 +9,20 @@ import cucumber.api.java.Before;
 import cucumber.api.java.es.Dado;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.codehaus.jackson.type.TypeReference;
 
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 import java.util.logging.Logger;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by pedro.zuppelli on 13/10/2015.
  */
 public class PasosDado {
+    public static final String TEST_MAIL_COM = "@test-mail.com";
     private static Logger logger = Logger.getLogger( PasosDado.class.getName() );
     CucumberContext context;
     HttpClient client;
@@ -72,12 +78,26 @@ public class PasosDado {
         String login = RandomStringUtils.randomAlphabetic( 8 );
         Usuario usuario = new Usuario();
         usuario.setLogin( login );
-        usuario.setEmail( login + "@mail.com" );
+        usuario.setEmail( login + TEST_MAIL_COM );
         HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper
                                                                   .postStringEntity( HttpClientHelper.RECURSO_USUARIO,
                                                                                      usuario ) );
         context.add( CucumberContext.ContentKeys.USER_ID, response.getEntity() );
     }
 
+    @Dado("^soy un usuario que ya hizo una compra$")
+    public void soy_un_usuario_que_ya_hizo_una_compra() throws Throwable {
+        HttpClientHelper.Response response = HttpClientHelper.execute( new HttpGet( HttpClientHelper.RECURSO_USUARIO ) );
+        List<Usuario> usuarios = CucumberContext.getInstance().getObjectMapper().readValue( response.getEntity(), new TypeReference< List <Usuario>>(){} );
+        Usuario usuario = null;
+        for( Usuario temp : usuarios ) {
+            if( temp.getEmail().contains( TEST_MAIL_COM  ) && temp.getCarritos().size() > 0 ) {
+                usuario = temp;
+                break;
+            }
+        }
+        assertTrue("Debe existir al menos un usuario de prueba", null != usuario );
+        context.add( CucumberContext.ContentKeys.USER_ID, usuario.getId().toString() );
+    }
 
 }
