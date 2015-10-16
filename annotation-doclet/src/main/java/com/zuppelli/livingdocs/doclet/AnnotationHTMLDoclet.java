@@ -4,7 +4,12 @@ import com.sun.javadoc.LanguageVersion;
 import com.sun.javadoc.RootDoc;
 import com.sun.tools.doclets.formats.html.HtmlDoclet;
 import com.thoughtworks.qdox.JavaProjectBuilder;
-import com.thoughtworks.qdox.model.*;
+import com.thoughtworks.qdox.model.JavaAnnotatedElement;
+import com.thoughtworks.qdox.model.JavaAnnotation;
+import com.thoughtworks.qdox.model.JavaClass;
+import com.thoughtworks.qdox.model.JavaField;
+import com.thoughtworks.qdox.model.JavaMethod;
+import com.thoughtworks.qdox.model.JavaPackage;
 import com.zuppelli.livingdocs.render.JClass;
 import com.zuppelli.livingdocs.render.JDerived;
 import com.zuppelli.livingdocs.render.JMethod;
@@ -17,7 +22,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Doclet que genera una pagina usando la libreria qox.
@@ -134,6 +143,19 @@ public class AnnotationHTMLDoclet
         JClass current = new JClass();
         current.setName( clss.getName() );
         current.setComment( clss.getComment() );
+        for ( JavaAnnotation annotation : clss.getAnnotations() ) {
+            try {
+                Class clzz = Class.forName( annotation.getType().getFullyQualifiedName() );
+
+                if (clzz.equals( Deprecated.class ) )  {
+                    current.setDeprecated( true );
+                    break;
+                }
+
+            } catch ( Exception ex ) {
+                // ignore error on class load.
+            }
+        }
 
         if ( clss.isEnum() )
         {

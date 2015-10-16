@@ -7,6 +7,7 @@ public class JClass
 {
     private String name;
     private String comment;
+    private boolean deprecated;
     private final List<JMethod> methods;
     private final List<JDerived> deriveds;
 
@@ -60,5 +61,13 @@ public class JClass
     public List<JDerived> getDeriveds()
     {
         return this.deriveds;
+    }
+
+    public boolean isDeprecated() {
+        return deprecated;
+    }
+
+    public void setDeprecated( boolean deprecated ) {
+        this.deprecated = deprecated;
     }
 }
