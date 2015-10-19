@@ -1,6 +1,5 @@
 package com.zuppelli.cake.modelo.dominio;
 
-import com.zuppelli.cake.modelo.Entity;
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -14,7 +13,7 @@ import java.util.List;
  */
 @ConceptoCentral
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Torta extends Entity
+public class Torta extends EntityDominio
 {
     private final List<Piso> pisos = new ArrayList<Piso>(  );
     private Piso base;

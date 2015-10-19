@@ -1,7 +1,6 @@
 package com.zuppelli.cake.modelo.dominio;
 
 import com.zuppelli.cake.config.ConfigHelper;
-import com.zuppelli.cake.modelo.Entity;
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -11,7 +10,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  */
 @ConceptoCentral
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Piso extends Entity
+public class Piso extends EntityDominio
 {
     private Relleno relleno;
     private String masa;

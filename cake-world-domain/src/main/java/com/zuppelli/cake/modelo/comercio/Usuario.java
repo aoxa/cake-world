@@ -1,6 +1,5 @@
 package com.zuppelli.cake.modelo.comercio;
 
-import com.zuppelli.cake.modelo.Entity;
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
 
@@ -11,7 +10,7 @@ import java.util.List;
  * Un usuario que desea utilizar la aplicacion.
  */
 @ConceptoCentral
-public class Usuario extends Entity {
+public class Usuario extends EntityComercio {
     private String login;
     private String email;
     private final List<Carrito> carritos;

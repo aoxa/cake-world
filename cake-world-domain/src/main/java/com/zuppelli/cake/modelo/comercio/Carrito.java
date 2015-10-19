@@ -1,6 +1,5 @@
 package com.zuppelli.cake.modelo.comercio;
 
-import com.zuppelli.cake.modelo.Entity;
 import com.zuppelli.cake.modelo.comercio.descuento.Descuento;
 import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.livingdocs.ComportamientoCentral;
@@ -15,7 +14,7 @@ import java.util.List;
  */
 @ConceptoCentral
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Carrito extends Entity
+public class Carrito extends EntityComercio
 {
     private final List<Torta> contenido;
     private Descuento descuento;

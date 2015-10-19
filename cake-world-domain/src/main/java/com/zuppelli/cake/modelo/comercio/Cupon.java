@@ -6,7 +6,7 @@ import com.zuppelli.livingdocs.ConceptoCentral;
  * Codigo que representa un descuento para una compra. Consta de un codigo y un porcentaje.
  */
 @ConceptoCentral
-public class Cupon
+public class Cupon extends EntityComercio
 {
     private final double descuento;
     private final String codigo;

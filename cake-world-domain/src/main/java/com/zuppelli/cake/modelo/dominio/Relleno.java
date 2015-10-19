@@ -1,6 +1,5 @@
 package com.zuppelli.cake.modelo.dominio;
 
-import com.zuppelli.cake.modelo.Entity;
 import com.zuppelli.livingdocs.ConceptoCentral;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -8,7 +7,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * Ingrediente que va en el centro de un piso de una torta.
  */
 @ConceptoCentral
-public class Relleno extends Entity
+public class Relleno extends EntityDominio
 {
     private String tipo;
 
