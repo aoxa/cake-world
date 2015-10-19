@@ -1,5 +1,6 @@
 package com.zuppelli.cake.modelo.comercio;
 
+import com.zuppelli.cake.modelo.comercio.descuento.Cupon;
 import com.zuppelli.livingdocs.ReemplazadoPor;
 
 /**
