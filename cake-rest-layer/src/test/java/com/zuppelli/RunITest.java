@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
                 "classpath:cukes/feature/com/zuppelli/Compra.feature",
                 "classpath:cukes/feature/com/zuppelli/VerificaPrecio.feature"
         },
-        plugin = {"pretty", "json:target/cucumber.json"},
+        plugin = {"pretty",  "html:target/cucumber", "json:target/cucumber.json"},
         glue = "com.zuppelli.pasos", strict = true)
 public class RunITest
 {
