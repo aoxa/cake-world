@@ -13,14 +13,14 @@ import org.junit.runner.RunWith;
                 "classpath:cukes/feature/com/zuppelli/Compra.feature",
                 "classpath:cukes/feature/com/zuppelli/VerificaPrecio.feature"
         },
-        plugin = {"pretty", "html:target/cucumber"},
+        plugin = {"pretty", "json:target/cucumber.json"},
         glue = "com.zuppelli.pasos", strict = true)
 public class RunITest
 {
     @BeforeClass
     public static void startup() {
-        System.out.println("tests");
     }
+
     @After
     public void tearDown() {
         CucumberContext.getInstance().reset();
