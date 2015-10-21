@@ -25,6 +25,7 @@ public class HttpClientHelper {
     public static final String RECURSO_COBERTURA = "http://" + HOST + ":" + PORT + "/" + APP + "api/cobertura/";
     public static final String RECURSO_RELLENO = "http://"+HOST+":"+PORT+"/" + APP + "api/relleno/";
     public static final String RECURSO_TORTA = "http://"+HOST+":"+PORT+"/" + APP + "api/torta/";
+    public static final String RECURSO_TORTA_PISO = "http://"+HOST+":"+PORT+"/" + APP + "api/torta/%s/piso";
     public static final String RECURSO_TORTA_POR_KILO = "http://"+HOST+":"+PORT+"/" + APP + "api/torta/por_kilo";
     public static final String RECURSO_USUARIO = "http://"+HOST+":"+PORT+"/" + APP + "api/commerce/user";
     public static final String RECURSO_CARRITO_USUARIO = "http://"+HOST+":"+PORT+"/" + APP + "api/commerce/user/%s/carrito";

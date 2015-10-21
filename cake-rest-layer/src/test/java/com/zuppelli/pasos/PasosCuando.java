@@ -8,6 +8,7 @@ import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.helper.CucumberContext;
 import com.zuppelli.helper.HttpClientHelper;
 import cucumber.api.java.es.Cuando;
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.http.client.methods.HttpGet;
 
 /**
@@ -62,10 +63,11 @@ public class PasosCuando {
     public void agrego_un_piso() throws Throwable {
         Torta torta = CucumberContext.getInstance().get( CucumberContext.ContentKeys.TORTA );
         Piso piso = new Piso();
-        piso.setPeso( 1.5d );
+        piso.setPeso( RandomUtils.nextInt() % 10d );
         torta.agregarPiso( piso );
 
         HttpClientHelper.execute( HttpClientHelper.postStringEntity(
-                HttpClientHelper.RECURSO_TORTA, torta ) );
+                String.format( HttpClientHelper.RECURSO_TORTA_PISO, torta.getId() ), piso ) );
+
     }
 }
