@@ -8,8 +8,14 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = {"classpath:cukes/feature/com/zuppelli/Inicial.feature"}, plugin = {"pretty", "html:target/cucumber"}, glue = "com.zuppelli.steps", strict = true)
-public class RunITests
+@CucumberOptions(
+        features = {
+                "classpath:cukes/feature/com/zuppelli/Compra.feature",
+                "classpath:cukes/feature/com/zuppelli/VerificaPrecio.feature"
+        },
+        plugin = {"pretty", "html:target/cucumber"},
+        glue = "com.zuppelli.pasos", strict = true)
+public class RunITest
 {
     @BeforeClass
     public static void startup() {

@@ -17,13 +17,15 @@ public class HttpClientHelper {
     /* TODO: Host y port deben ser configurables en ejecucion. */
     private static final String HOST = "localhost";
     private static final String PORT = "5723";
+    // private static final String APP = "cake-world-rest/";
+    private static final String APP = "";
 
-    public static final String RECURSO_COBERTURA = "http://"+HOST+":"+PORT+"/cake-world-rest/api/cobertura/";
-    public static final String RECURSO_RELLENO = "http://"+HOST+":"+PORT+"/cake-world-rest/api/relleno/";
-    public static final String RECURSO_TORTA = "http://"+HOST+":"+PORT+"/cake-world-rest/api/torta/";
-    public static final String RECURSO_TORTA_POR_KILO = "http://"+HOST+":"+PORT+"/cake-world-rest/api/torta/por_kilo";
-    public static final String RECURSO_USUARIO = "http://"+HOST+":"+PORT+"/cake-world-rest/api/commerce/user";
-    public static final String RECURSO_CARRITO_USUARIO = "http://"+HOST+":"+PORT+"/cake-world-rest/api/commerce/user/%s/carrito";
+    public static final String RECURSO_COBERTURA = "http://" + HOST + ":" + PORT + "/" + APP + "api/cobertura/";
+    public static final String RECURSO_RELLENO = "http://"+HOST+":"+PORT+"/" + APP + "api/relleno/";
+    public static final String RECURSO_TORTA = "http://"+HOST+":"+PORT+"/" + APP + "api/torta/";
+    public static final String RECURSO_TORTA_POR_KILO = "http://"+HOST+":"+PORT+"/" + APP + "api/torta/por_kilo";
+    public static final String RECURSO_USUARIO = "http://"+HOST+":"+PORT+"/" + APP + "api/commerce/user";
+    public static final String RECURSO_CARRITO_USUARIO = "http://"+HOST+":"+PORT+"/" + APP + "api/commerce/user/%s/carrito";
 
     public static HttpPost postStringEntity( String url, Entity body ) throws UnsupportedEncodingException {
         try {
