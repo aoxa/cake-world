@@ -3,6 +3,8 @@ package com.zuppelli.cake.modelo.dominio;
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.pojomatic.Pojomatic;
+import org.pojomatic.annotations.AutoProperty;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +15,7 @@ import java.util.List;
  */
 @ConceptoCentral
 @JsonIgnoreProperties(ignoreUnknown = true)
+@AutoProperty
 public class Torta extends EntityDominio
 {
     private final List<Piso> pisos = new ArrayList<Piso>(  );
@@ -26,6 +29,10 @@ public class Torta extends EntityDominio
     @ComportamientoCentral
     public double getPrecio( )
     {
+        if( null == base ) {
+            return 0;
+        }
+
         double precio = base.getPrecio();
 
         for( Piso piso : pisos ) {
@@ -68,4 +75,13 @@ public class Torta extends EntityDominio
     {
         this.base = base;
     }
+
+    @Override public boolean equals(Object o) {
+        return Pojomatic.equals(this, o);
+    }
+
+    @Override public int hashCode() {
+        return Pojomatic.hashCode(this);
+    }
+
 }

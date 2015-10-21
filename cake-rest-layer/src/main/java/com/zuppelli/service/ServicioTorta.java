@@ -29,7 +29,7 @@ public class ServicioTorta extends ServicioGenerico<Torta>
             torta.setCobertura( servicioCobertura.get( torta.getCobertura().getId() ) );
         }
 
-        if( null == torta.getBase().getId() )
+        if( null != torta.getBase() && null == torta.getBase().getId() )
         {
             this.servicioPiso.store( torta.getBase() );
         }

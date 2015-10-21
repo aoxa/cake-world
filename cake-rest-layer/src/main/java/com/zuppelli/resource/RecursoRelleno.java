@@ -31,10 +31,7 @@ public class RecursoRelleno extends Recurso<Relleno> implements InitializingBean
     @Override
     public Response add( Relleno entity )
     {
-        entity = servicioRelleno.store( entity );
-        return Response.created( uriInfo.getAbsolutePathBuilder()
-                                         .path( entity.getId().toString() ).build() )
-                       .entity( entity.getId().toString() ).build();
+        return super.add( servicioRelleno.store( entity ) );
     }
 
     @Override

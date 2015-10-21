@@ -1,7 +1,9 @@
 package com.zuppelli.pasos;
 
+import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.helper.CucumberContext;
 import com.zuppelli.helper.HttpClientHelper;
+import cucumber.api.PendingException;
 import cucumber.api.java.es.Entonces;
 import org.apache.http.client.methods.HttpGet;
 import org.codehaus.jettison.json.JSONObject;
@@ -28,8 +30,8 @@ public class PasosEntonces {
         CucumberContext context = CucumberContext.getInstance();
 
         HttpClientHelper.Response response = HttpClientHelper
-                                        .execute( new HttpGet( context.get( CucumberContext.ContentKeys.CARRITO_URL )
-                                                                       .toString() ) );
+                                        .execute(new HttpGet(context.get(CucumberContext.ContentKeys.CARRITO_URL)
+                                                .toString()));
         JSONObject object = new JSONObject( response.getEntity() );
         Double corriente = object.getDouble( "precio" );
 
@@ -41,12 +43,21 @@ public class PasosEntonces {
         CucumberContext context = CucumberContext.getInstance();
 
         HttpClientHelper.Response response = HttpClientHelper
-                .execute( new HttpGet( context.get( CucumberContext.ContentKeys.CARRITO_URL )
-                        .toString() ) );
+                .execute(new HttpGet(context.get(CucumberContext.ContentKeys.CARRITO_URL)
+                        .toString()));
         JSONObject object = new JSONObject( response.getEntity() );
         Double corriente = object.getDouble( "precio" );
 
         assertEquals( "El precio esperado no es el recuperado.", esperado, corriente );
+    }
+
+    @Entonces("^recuperarla y validar el contenido$")
+    public void recuperarla_y_validar_el_contenido() throws Throwable {
+        HttpClientHelper.Response response = HttpClientHelper
+                .execute(new HttpGet( CucumberContext.getInstance().get(CucumberContext.ContentKeys.TORTA_URL)
+                        .toString()));
+        Torta corriente = CucumberContext.getInstance().getObjectMapper().readValue(response.getEntity(), Torta.class);
+        assertEquals( CucumberContext.getInstance().get( CucumberContext.ContentKeys.TORTA ), corriente );
     }
 
 }

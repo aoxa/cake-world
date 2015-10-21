@@ -60,6 +60,7 @@ public class CucumberContext {
     public interface ContentKeys {
         String RELLENO_BASE = "relleno-base";
         String COBERTURA_BASE = "cobertura-base";
+        String TORTA = "torta-base";
         String TORTA_URL = "torta-url";
         String LOGIN = "login";
         String USER_ID = "user-id";
