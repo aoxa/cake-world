@@ -4,7 +4,9 @@ import com.zuppelli.cake.modelo.Entity;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.annotation.Immutable;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
@@ -27,21 +29,30 @@ public class HttpClientHelper {
     public static final String RECURSO_USUARIO = "http://"+HOST+":"+PORT+"/" + APP + "api/commerce/user";
     public static final String RECURSO_CARRITO_USUARIO = "http://"+HOST+":"+PORT+"/" + APP + "api/commerce/user/%s/carrito";
 
-    public static HttpPost postStringEntity( String url, Entity body ) throws UnsupportedEncodingException {
+    public static HttpEntityEnclosingRequestBase postStringEntity( String url, Entity body ) throws UnsupportedEncodingException {
         try {
-            return postStringEntity( url, CucumberContext.getInstance().getObjectMapper().writeValueAsString( body ) );
+            return postStringEntity( url, CucumberContext.getInstance().getObjectMapper().writeValueAsString( body ),
+                    null != body.getId() );
         } catch ( Exception e ) {
             throw new UnsupportedEncodingException( e.getMessage() );
         }
 
     }
-
-    public static HttpPost postStringEntity( String url, String body ) throws UnsupportedEncodingException {
-        return postStringEntity( url, body, MediaType.APPLICATION_JSON );
+    public static HttpEntityEnclosingRequestBase postStringEntity( String url, String body ) throws UnsupportedEncodingException {
+        return postStringEntity( url, body, false );
     }
 
-    public static HttpPost postStringEntity( String url, Object body, String contentType ) throws UnsupportedEncodingException {
-        HttpPost post = new HttpPost( url );
+    public static HttpEntityEnclosingRequestBase postStringEntity( String url, String body, boolean update ) throws UnsupportedEncodingException {
+        return postStringEntity( url, body, MediaType.APPLICATION_JSON, update );
+    }
+
+    public static HttpEntityEnclosingRequestBase postStringEntity( String url, Object body, String contentType ) throws UnsupportedEncodingException {
+        return postStringEntity( url, body, contentType, false );
+    }
+
+    public static HttpEntityEnclosingRequestBase postStringEntity( String url, Object body, String contentType, boolean update ) throws UnsupportedEncodingException {
+        HttpEntityEnclosingRequestBase post = update ? new HttpPut( url ) : new HttpPost( url );
+
         post.setEntity( new StringEntity( body.toString() ) );
         post.setHeader( "Content-Type", contentType );
         return post;

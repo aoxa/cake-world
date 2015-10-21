@@ -1,5 +1,7 @@
 package com.zuppelli.resource;
 
+import com.zuppelli.cake.modelo.Entity;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,7 +21,7 @@ import java.util.Collection;
 /**
  * Created by pedro.com.zuppelli on 07/10/2015.
  */
-public abstract class Recurso<T> {
+public abstract class Recurso<T extends Entity> {
     @Context
     protected SecurityContext securityContext;
     @Context
@@ -38,7 +40,11 @@ public abstract class Recurso<T> {
 
     @POST
     @Consumes( MediaType.APPLICATION_JSON )
-    public abstract Response add( T entity );
+    public Response add( T entity ) {
+        return Response.created( uriInfo.getAbsolutePathBuilder()
+                .path( entity.getId().toString() ).build() )
+                .entity( entity.getId().toString() ).build();
+    }
 
     @DELETE
     @Path( "{id}" )

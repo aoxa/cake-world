@@ -30,8 +30,7 @@ public class RecursoTorta extends Recurso<Torta>
 
     @Override
     public Response add( Torta entity ) {
-        servicioTorta.store( entity );
-        return Response.created( uriInfo.getAbsolutePathBuilder().path( entity.getId().toString() ).build(  ) ).build();
+        return super.add( servicioTorta.store( entity ) );
     }
 
     @Override
@@ -48,7 +47,7 @@ public class RecursoTorta extends Recurso<Torta>
 
     @Override
     public Response update( Torta entity ) {
-        return Response.created( uriInfo.getAbsolutePath() ).entity( servicioTorta.store( entity ) ).build();
+        return super.add( servicioTorta.store( entity ));
     }
 
     public void setServicioTorta( Servicio<Torta> servicioTorta ) {

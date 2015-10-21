@@ -1,10 +1,11 @@
-package com.zuppelli;
+package com.zuppelli.integration;
 
 import com.zuppelli.helper.CucumberContext;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)

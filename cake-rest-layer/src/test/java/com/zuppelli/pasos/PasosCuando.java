@@ -7,6 +7,7 @@ import com.zuppelli.cake.modelo.dominio.Relleno;
 import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.helper.CucumberContext;
 import com.zuppelli.helper.HttpClientHelper;
+import cucumber.api.PendingException;
 import cucumber.api.java.es.Cuando;
 import org.apache.http.client.methods.HttpGet;
 
@@ -16,26 +17,35 @@ import org.apache.http.client.methods.HttpGet;
 public class PasosCuando {
     @Cuando( "^ordeno una torta de '(\\d+)' kilos$" )
     public void ordeno_una_torta_de_kilos( Double kilo ) throws Throwable {
-        Torta torta = new Torta();
-        Cobertura cobertura = CucumberContext.getInstance().get( CucumberContext.ContentKeys.COBERTURA_BASE );
+        CucumberContext context = CucumberContext.getInstance();
+        Torta torta = context.get(CucumberContext.ContentKeys.TORTA);
+        if ( null == torta ) {
+            torta = new Torta();
+            context.add(CucumberContext.ContentKeys.TORTA, torta);
+        }
+
+        Cobertura cobertura = context.get(CucumberContext.ContentKeys.COBERTURA_BASE);
         torta.setCobertura( cobertura );
-        Relleno relleno = CucumberContext.getInstance().get( CucumberContext.ContentKeys.RELLENO_BASE );
+        Relleno relleno = context.get(CucumberContext.ContentKeys.RELLENO_BASE);
         Piso piso = new Piso();
         piso.setRelleno( relleno );
         piso.setPeso( kilo );
         torta.setBase( piso );
-        CucumberContext context = CucumberContext.getInstance();
         HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper
                                                                   .postStringEntity( HttpClientHelper.RECURSO_TORTA,
                                                                                      torta ) );
         CucumberContext.getInstance()
-                .add( CucumberContext.ContentKeys.TORTA_URL, response.getClosedResponse().getFirstHeader( "Location" ).getValue() );
+                .add( CucumberContext.ContentKeys.TORTA_URL, getLocation(response));
+    }
+
+    private String getLocation(HttpClientHelper.Response response) {
+        return response.getClosedResponse().getFirstHeader( "Location" ).getValue();
     }
 
     @Cuando("^la agrego al carrito$")
     public void la_agrego_al_carrito() throws Throwable {
         CucumberContext context = CucumberContext.getInstance();
-        String location = context.get( CucumberContext.ContentKeys.TORTA_URL );
+        String location = context.get(CucumberContext.ContentKeys.TORTA_URL);
         HttpClientHelper.Response response = HttpClientHelper.execute( new HttpGet( location ) );
         Torta torta = context.getObjectMapper()
                               .readValue( response.getEntity(), Torta.class );
@@ -45,7 +55,13 @@ public class PasosCuando {
                                                      .postStringEntity( String.format( HttpClientHelper.RECURSO_CARRITO_USUARIO,
                                                                                        context.get( CucumberContext.ContentKeys.USER_ID ) ),
                                                                         carrito ) );
-        context.add( CucumberContext.ContentKeys.CARRITO_URL, response.getClosedResponse().getFirstHeader( "Location" ).getValue() );
+        context.add(CucumberContext.ContentKeys.CARRITO_URL, getLocation(response));
 
+    }
+
+    @Cuando("^agrego un piso$")
+    public void agrego_un_piso() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }

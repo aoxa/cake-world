@@ -4,12 +4,15 @@ import com.zuppelli.cake.config.ConfigHelper;
 import com.zuppelli.livingdocs.ComportamientoCentral;
 import com.zuppelli.livingdocs.ConceptoCentral;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.pojomatic.Pojomatic;
+import org.pojomatic.annotations.AutoProperty;
 
 /**
  * Seccion horizontal de una torta.
  */
 @ConceptoCentral
 @JsonIgnoreProperties(ignoreUnknown = true)
+@AutoProperty
 public class Piso extends EntityDominio
 {
     private Relleno relleno;
@@ -61,5 +64,13 @@ public class Piso extends EntityDominio
 
     public double getPeso() {
         return peso;
+    }
+
+    @Override public boolean equals(Object o) {
+        return Pojomatic.equals(this, o);
+    }
+
+    @Override public int hashCode() {
+        return Pojomatic.hashCode(this);
     }
 }

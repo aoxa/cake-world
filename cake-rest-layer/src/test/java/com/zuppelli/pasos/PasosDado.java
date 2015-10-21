@@ -3,8 +3,10 @@ package com.zuppelli.pasos;
 import com.zuppelli.cake.modelo.comercio.Usuario;
 import com.zuppelli.cake.modelo.dominio.Cobertura;
 import com.zuppelli.cake.modelo.dominio.Relleno;
+import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.helper.CucumberContext;
 import com.zuppelli.helper.HttpClientHelper;
+import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.es.Dado;
 import org.apache.commons.lang.RandomStringUtils;
@@ -46,8 +48,7 @@ public class PasosDado {
         cbt.setPrecio( coberturaPrecio );
 
         HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper.postStringEntity( HttpClientHelper.RECURSO_COBERTURA,
-                                                                                   context.getObjectMapper()
-                                                                                           .writeValueAsString( cbt ) ) );
+                                                                                   cbt ) );
         cbt.setId( Long.parseLong( response.getEntity() ) );
         context.add( CucumberContext.ContentKeys.COBERTURA_BASE, cbt );
     }
@@ -59,8 +60,7 @@ public class PasosDado {
         rel.setPrecio( rellenoPrecio );
 
         HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper.postStringEntity( HttpClientHelper.RECURSO_RELLENO,
-                                                                                   context.getObjectMapper()
-                                                                                           .writeValueAsString( rel ) ) );
+                                                                                    rel  ) );
         rel.setId( Long.parseLong( response.getEntity() ) );
         context.add( CucumberContext.ContentKeys.RELLENO_BASE, rel );
     }
@@ -98,6 +98,16 @@ public class PasosDado {
         }
         assertTrue("Debe existir al menos un usuario de prueba", null != usuario );
         context.add( CucumberContext.ContentKeys.USER_ID, usuario.getId().toString() );
+    }
+
+    @Dado("^que agrego una nueva torta$")
+    public void que_agrego_una_nueva_torta() throws Throwable {
+        Torta torta = new Torta();
+
+        HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper.postStringEntity(
+                HttpClientHelper.RECURSO_TORTA, torta) );
+        torta.setId( Long.parseLong( response.getEntity() ) );
+        CucumberContext.getInstance().add( CucumberContext.ContentKeys.TORTA, torta );
     }
 
 }
