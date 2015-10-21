@@ -14,12 +14,16 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public class HttpClientHelper {
-    public static final String RECURSO_COBERTURA = "http://localhost:8080/cake-world-rest/api/cobertura/";
-    public static final String RECURSO_RELLENO = "http://localhost:8080/cake-world-rest/api/relleno/";
-    public static final String RECURSO_TORTA = "http://localhost:8080/cake-world-rest/api/torta/";
-    public static final String RECURSO_TORTA_POR_KILO = "http://localhost:8080/cake-world-rest/api/torta/por_kilo";
-    public static final String RECURSO_USUARIO = "http://localhost:8080/cake-world-rest/api/commerce/user";
-    public static final String RECURSO_CARRITO_USUARIO = "http://localhost:8080/cake-world-rest/api/commerce/user/%s/carrito";
+    /* TODO: Host y port deben ser configurables en ejecucion. */
+    private static final String HOST = "localhost";
+    private static final String PORT = "5723";
+
+    public static final String RECURSO_COBERTURA = "http://"+HOST+":"+PORT+"/cake-world-rest/api/cobertura/";
+    public static final String RECURSO_RELLENO = "http://"+HOST+":"+PORT+"/cake-world-rest/api/relleno/";
+    public static final String RECURSO_TORTA = "http://"+HOST+":"+PORT+"/cake-world-rest/api/torta/";
+    public static final String RECURSO_TORTA_POR_KILO = "http://"+HOST+":"+PORT+"/cake-world-rest/api/torta/por_kilo";
+    public static final String RECURSO_USUARIO = "http://"+HOST+":"+PORT+"/cake-world-rest/api/commerce/user";
+    public static final String RECURSO_CARRITO_USUARIO = "http://"+HOST+":"+PORT+"/cake-world-rest/api/commerce/user/%s/carrito";
 
     public static HttpPost postStringEntity( String url, Entity body ) throws UnsupportedEncodingException {
         try {
