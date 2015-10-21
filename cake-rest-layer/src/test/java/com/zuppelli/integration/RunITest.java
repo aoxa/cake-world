@@ -12,7 +12,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = {
                 "classpath:cukes/feature/com/zuppelli/Compra.feature",
-                "classpath:cukes/feature/com/zuppelli/VerificaPrecio.feature"
+                "classpath:cukes/feature/com/zuppelli/VerificaPrecio.feature",
+                "classpath:cukes/feature/com/zuppelli/AgregoPisos.feature"
         },
         plugin = {"pretty",  "html:target/cucumber", "json:target/cucumber.json"},
         glue = "com.zuppelli.pasos", strict = true)
