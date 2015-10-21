@@ -7,7 +7,6 @@ import com.zuppelli.cake.modelo.dominio.Relleno;
 import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.helper.CucumberContext;
 import com.zuppelli.helper.HttpClientHelper;
-import cucumber.api.PendingException;
 import cucumber.api.java.es.Cuando;
 import org.apache.http.client.methods.HttpGet;
 
@@ -61,7 +60,12 @@ public class PasosCuando {
 
     @Cuando("^agrego un piso$")
     public void agrego_un_piso() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        Torta torta = CucumberContext.getInstance().get( CucumberContext.ContentKeys.TORTA );
+        Piso piso = new Piso();
+        piso.setPeso( 1.5d );
+        torta.agregarPiso( piso );
+
+        HttpClientHelper.execute( HttpClientHelper.postStringEntity(
+                HttpClientHelper.RECURSO_TORTA, torta ) );
     }
 }
