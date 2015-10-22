@@ -13,19 +13,16 @@ import java.util.List;
  * El carrito de compra del usuario.
  */
 @ConceptoCentral
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Carrito extends EntityComercio
-{
+@JsonIgnoreProperties( ignoreUnknown = true )
+public class Carrito extends EntityComercio {
     private final List<Torta> contenido;
     private Descuento descuento;
 
-    public Carrito()
-    {
+    public Carrito() {
         contenido = new ArrayList<Torta>();
     }
 
-    public void limpiar()
-    {
+    public void limpiar() {
         contenido.clear();
         descuento = null;
     }
@@ -37,15 +34,13 @@ public class Carrito extends EntityComercio
     @ComportamientoCentral
     public double getPrecio() {
         double precio = 0;
-        for( Torta torta : contenido )
-        {
+        for ( Torta torta : contenido ) {
             precio += torta.getPrecio();
         }
         return null == descuento ? precio : descuento.aplicar( precio );
     }
 
-    public void setDescuento( Descuento descuento )
-    {
+    public void setDescuento( Descuento descuento ) {
         this.descuento = descuento;
     }
 

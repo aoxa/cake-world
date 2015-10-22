@@ -14,74 +14,69 @@ import java.util.List;
  * Masa de harina, con otros ingredientes, de forma redonda, que se cuece a fuego lento.
  */
 @ConceptoCentral
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties( ignoreUnknown = true )
 @AutoProperty
-public class Torta extends EntityDominio
-{
-    private final List<Piso> pisos = new ArrayList<Piso>(  );
+public class Torta extends EntityDominio {
+    private final List<Piso> pisos = new ArrayList<Piso>();
     private Piso base;
     private Cobertura cobertura;
 
     /**
      * Precio total de la torta.
+     *
      * @return el precio.
      */
     @ComportamientoCentral
-    public double getPrecio( )
-    {
-        if( null == base ) {
+    public double getPrecio() {
+        if ( null == base ) {
             return 0;
         }
 
         double precio = base.getPrecio();
 
-        for( Piso piso : pisos ) {
+        for ( Piso piso : pisos ) {
             precio += piso.getPrecio();
         }
 
-        if( null != cobertura ) {
+        if ( null != cobertura ) {
             precio += cobertura.getPrecio();
         }
 
         return precio;
     }
 
-    public Cobertura getCobertura()
-    {
+    public Cobertura getCobertura() {
         return cobertura;
     }
 
-    public void setCobertura( Cobertura cobertura )
-    {
+    public void setCobertura( Cobertura cobertura ) {
         this.cobertura = cobertura;
     }
 
-    public List<Piso> getPisos()
-    {
+    public List<Piso> getPisos() {
         return pisos;
     }
 
-    public void agregarPiso( Piso ... piso )
-    {
-        this.pisos.addAll( Arrays.asList(piso) ) ;
+    public void agregarPiso( Piso... piso ) {
+        this.pisos.addAll( Arrays.asList( piso ) );
     }
 
-    public Piso getBase()
-    {
+    public Piso getBase() {
         return base;
     }
 
-    public void setBase( Piso base )
-    {
+    public void setBase( Piso base ) {
         this.base = base;
     }
 
-    @Override public boolean equals(Object o) {
-        return Pojomatic.equals(this, o);
+    @Override
+    public boolean equals( Object o ) {
+        return Pojomatic.equals( this, o );
     }
 
-    @Override public int hashCode() {
-        return Pojomatic.hashCode(this);
+    @Override
+    public int hashCode() {
+        return Pojomatic.hashCode( this );
     }
 
 }

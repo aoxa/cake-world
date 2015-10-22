@@ -11,10 +11,9 @@ import org.pojomatic.annotations.AutoProperty;
  * Seccion horizontal de una torta.
  */
 @ConceptoCentral
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties( ignoreUnknown = true )
 @AutoProperty
-public class Piso extends EntityDominio
-{
+public class Piso extends EntityDominio {
     private Relleno relleno;
     private String masa;
     private double peso;
@@ -25,10 +24,9 @@ public class Piso extends EntityDominio
      * @return - El precio total del piso.
      */
     @ComportamientoCentral
-    public double getPrecio()
-    {
+    public double getPrecio() {
         double precio = peso * getPrecioPorKilo();
-        if( null != relleno ) {
+        if ( null != relleno ) {
             precio += relleno.getPrecio();
         }
         return precio;
@@ -38,23 +36,19 @@ public class Piso extends EntityDominio
         return ConfigHelper.getInstance().get( ConfigHelper.Keys.PRECIO_POR_KILO );
     }
 
-    public Relleno getRelleno()
-    {
+    public Relleno getRelleno() {
         return relleno;
     }
 
-    public void setRelleno( Relleno relleno )
-    {
+    public void setRelleno( Relleno relleno ) {
         this.relleno = relleno;
     }
 
-    public String getMasa()
-    {
+    public String getMasa() {
         return masa;
     }
 
-    public void setMasa( String masa )
-    {
+    public void setMasa( String masa ) {
         this.masa = masa;
     }
 
@@ -66,11 +60,13 @@ public class Piso extends EntityDominio
         return peso;
     }
 
-    @Override public boolean equals(Object o) {
-        return Pojomatic.equals(this, o);
+    @Override
+    public boolean equals( Object o ) {
+        return Pojomatic.equals( this, o );
     }
 
-    @Override public int hashCode() {
-        return Pojomatic.hashCode(this);
+    @Override
+    public int hashCode() {
+        return Pojomatic.hashCode( this );
     }
 }

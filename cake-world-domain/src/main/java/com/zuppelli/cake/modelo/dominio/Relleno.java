@@ -10,20 +10,17 @@ import org.pojomatic.annotations.AutoProperty;
  */
 @ConceptoCentral
 @AutoProperty
-public class Relleno extends EntityDominio
-{
+public class Relleno extends EntityDominio {
     private String tipo;
 
     @JsonIgnore
     private Long precio;
 
-    public String getTipo()
-    {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo( String tipo )
-    {
+    public void setTipo( String tipo ) {
         this.tipo = tipo;
     }
 
@@ -35,11 +32,13 @@ public class Relleno extends EntityDominio
         this.precio = precio;
     }
 
-    @Override public boolean equals(Object o) {
-        return Pojomatic.equals(this, o);
+    @Override
+    public boolean equals( Object o ) {
+        return Pojomatic.equals( this, o );
     }
 
-    @Override public int hashCode() {
-        return Pojomatic.hashCode(this);
+    @Override
+    public int hashCode() {
+        return Pojomatic.hashCode( this );
     }
 }

@@ -5,7 +5,7 @@ public class MissconfigurationException extends RuntimeException {
         super();
     }
 
-    public MissconfigurationException(String message) {
-        super(message);
+    public MissconfigurationException( String message ) {
+        super( message );
     }
 }

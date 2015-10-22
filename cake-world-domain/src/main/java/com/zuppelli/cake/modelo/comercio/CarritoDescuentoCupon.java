@@ -8,8 +8,7 @@ import com.zuppelli.livingdocs.ReemplazadoPor;
  */
 @Deprecated
 @ReemplazadoPor( referencia = Carrito.class, razon = "Se aplica el patron Strategy en el carrito, por lo que esta clase queda redundante." )
-public class CarritoDescuentoCupon extends Carrito
-{
+public class CarritoDescuentoCupon extends Carrito {
     private Cupon cupon;
 
     public double getPrecio() {

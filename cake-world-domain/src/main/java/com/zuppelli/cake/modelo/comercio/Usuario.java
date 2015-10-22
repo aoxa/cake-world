@@ -16,7 +16,7 @@ public class Usuario extends EntityComercio {
     private final List<Carrito> carritos;
 
     public Usuario() {
-        carritos = new ArrayList<Carrito>(  );
+        carritos = new ArrayList<Carrito>();
     }
 
     public String getEmail() {
