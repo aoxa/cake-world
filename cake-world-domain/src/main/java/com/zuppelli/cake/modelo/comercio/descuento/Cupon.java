@@ -7,24 +7,20 @@ import com.zuppelli.livingdocs.ConceptoCentral;
  * Codigo que representa un descuento para una compra. Consta de un codigo y un porcentaje.
  */
 @ConceptoCentral
-public class Cupon extends EntityComercio
-{
+public class Cupon extends EntityComercio {
     private final double descuento;
     private final String codigo;
 
-    public Cupon(double descuento, String codigo )
-    {
+    public Cupon( double descuento, String codigo ) {
         this.descuento = descuento;
         this.codigo = codigo;
     }
 
-    public double getDescuento()
-    {
+    public double getDescuento() {
         return descuento;
     }
 
-    public String getCodigo()
-    {
+    public String getCodigo() {
         return codigo;
     }
 }

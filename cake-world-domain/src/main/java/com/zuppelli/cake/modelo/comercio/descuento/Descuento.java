@@ -9,10 +9,10 @@ import com.zuppelli.livingdocs.Strategy;
  */
 @Strategy
 @ConceptoCentral
-public interface Descuento
-{
+public interface Descuento {
     /**
      * Aplica el descuento al precio.
+     *
      * @param total - el precio sin el descuento.
      * @return - El precio con el descuento.
      */

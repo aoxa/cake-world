@@ -24,6 +24,7 @@ public class ConfigHelper {
     }
 
     private final Map<ConfigKey, Object> configs;
+
     private static ConfigHelper instance;
 
     private ConfigHelper() {
@@ -31,6 +32,11 @@ public class ConfigHelper {
         configs.put( Keys.PRECIO_POR_KILO, 107d );
     }
 
+    /**
+     * Devuelve una instancia de la configuracion.
+     * @return
+     *          - La configuracion.
+     */
     public static ConfigHelper getInstance() {
         if ( null == instance ) {
             synchronized ( ConfigHelper.class ) {
@@ -42,10 +48,22 @@ public class ConfigHelper {
         return instance;
     }
 
+    /**
+     * Agrega la configuracion.
+     * @param key - la llave de la configuracion.
+     * @param value - el valor de la configuracion.
+     * @param <T> - El tipo de configuracion.
+     */
     public <T> void put( ConfigKey key, T value ) {
         this.configs.put( key, value );
     }
 
+    /**
+     * Devuelve el valor de una configuracion.
+     * @param key - la llave de la configuracion.
+     * @param <T> - El tipo de configuracion.
+     * @return El valor configurado.
+     */
     public <T> T get( ConfigKey key ) {
         try {
             T value = ( T ) configs.get( key );
