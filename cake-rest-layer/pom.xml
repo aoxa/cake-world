@@ -12,7 +12,7 @@
 			<properties>
 				<exclude.tests>nothing-to-exclude</exclude.tests>
                 <server.host>localhost</server.host>
-                <server.port>8080</server.port>
+                <server.port>5723</server.port>
 			</properties>
 		</profile>
 	</profiles>
