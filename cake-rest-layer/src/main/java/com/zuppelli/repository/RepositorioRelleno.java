@@ -10,33 +10,31 @@ import java.util.Collection;
 
 @Component
 @Deprecated
-@ReemplazadoPor( referencia = RepositorioGenerico.class, razon = "En vez de tener un repositorio por entidad, pase a uno generico." )
-public class RepositorioRelleno implements Repository<Relleno, Long>
-{
-    @Autowired private Storage storage;
+@ReemplazadoPor(
+        referencia = RepositorioGenerico.class,
+        razon = "En vez de tener un repositorio por entidad, pase a uno generico." )
+public class RepositorioRelleno implements Repository<Relleno, Long> {
+    @Autowired
+    private Storage storage;
 
     @Override
-    public Relleno store( Relleno entity )
-    {
+    public Relleno store( Relleno entity ) {
         return storage.store( Relleno.class, entity );
 
     }
 
     @Override
-    public void remove( Long identifier )
-    {
+    public void remove( Long identifier ) {
         this.storage.delete( Relleno.class, identifier );
     }
 
     @Override
-    public Relleno retrieve( Long identifier )
-    {
+    public Relleno retrieve( Long identifier ) {
         return this.storage.retrieve( Relleno.class, identifier );
     }
 
     @Override
-    public Collection<Relleno> retrieve()
-    {
+    public Collection<Relleno> retrieve() {
         return this.storage.retrieve( Relleno.class );
     }
 }

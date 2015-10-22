@@ -9,32 +9,29 @@ import java.util.Collection;
 
 @Component
 public class RepositorioGenerico<T extends Entity> implements Repositorio<T> {
-    @Autowired private Storage storage;
+    @Autowired
+    private Storage storage;
 
     @Override
-    public T store( T entity )
-    {
+    public T store( T entity ) {
         return ( T ) storage.store(
-                                    entity.getClass(),
-                              entity );
+                entity.getClass(),
+                entity );
 
     }
 
     @Override
-    public void remove( Long identifier, Class<T> clazz )
-    {
+    public void remove( Long identifier, Class<T> clazz ) {
         this.storage.delete( clazz, identifier );
     }
 
     @Override
-    public T retrieve( Long identifier, Class<T> clazz )
-    {
+    public T retrieve( Long identifier, Class<T> clazz ) {
         return ( T ) this.storage.retrieve( clazz, identifier );
     }
 
     @Override
-    public Collection<T> retrieve( Class<T> clazz )
-    {
+    public Collection<T> retrieve( Class<T> clazz ) {
         return ( Collection<T> ) this.storage.retrieve( clazz );
     }
 }

@@ -2,8 +2,7 @@ package com.zuppelli.service;
 
 import java.util.Collection;
 
-public interface Servicio<T>
-{
+public interface Servicio<T> {
     T get( Long id );
 
     Collection<T> get();

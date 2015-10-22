@@ -2,6 +2,7 @@ package com.zuppelli.resource;
 
 import com.zuppelli.cake.modelo.Entity;
 
+import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,7 +17,7 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
-import java.util.Collection;
+
 
 /**
  * Created by pedro.com.zuppelli on 07/10/2015.
@@ -38,6 +39,11 @@ public abstract class Recurso<T extends Entity> {
     @Produces( MediaType.APPLICATION_JSON )
     public abstract T get( @PathParam( "id" ) Long id );
 
+    /**
+     * Devuelve la direccion del recurso agregado.
+     * @param entity - El recurso agregado.
+     * @return la respuesta del servidor.
+     */
     @POST
     @Consumes( MediaType.APPLICATION_JSON )
     public Response add( T entity ) {
@@ -45,6 +51,7 @@ public abstract class Recurso<T extends Entity> {
                 .path( entity.getId().toString() ).build() )
                 .entity( entity.getId().toString() ).build();
     }
+
 
     @DELETE
     @Path( "{id}" )

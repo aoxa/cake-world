@@ -9,34 +9,33 @@ import org.springframework.stereotype.Service;
 import java.util.Iterator;
 
 /**
- *
+ *  Servicio para guardar y recuperar Torta.
  */
 @Service
-public class ServicioTorta extends ServicioGenerico<Torta>
-{
-    @Autowired private Servicio<Piso> servicioPiso;
-    @Autowired private Servicio<Cobertura> servicioCobertura;
+public class ServicioTorta extends ServicioGenerico<Torta> {
+    @Autowired
+    private Servicio<Piso> servicioPiso;
+    @Autowired
+    private Servicio<Cobertura> servicioCobertura;
 
     public ServicioTorta() {
-        super(Torta.class);
+        super( Torta.class );
     }
 
     @Override
     public Torta store( Torta torta ) {
 
-        if( null != torta.getCobertura() && null != torta.getCobertura().getId() )
-        {
+        if ( null != torta.getCobertura() && null != torta.getCobertura().getId() ) {
             torta.setCobertura( servicioCobertura.get( torta.getCobertura().getId() ) );
         }
 
-        if( null != torta.getBase() && null == torta.getBase().getId() )
-        {
+        if ( null != torta.getBase() && null == torta.getBase().getId() ) {
             this.servicioPiso.store( torta.getBase() );
         }
 
-        if( null != torta.getPisos() ) {
-            for( Piso piso : torta.getPisos() ) {
-                if( null == piso.getId() ) {
+        if ( null != torta.getPisos() ) {
+            for ( Piso piso : torta.getPisos() ) {
+                if ( null == piso.getId() ) {
                     this.servicioPiso.store( piso );
                 }
             }
@@ -45,7 +44,7 @@ public class ServicioTorta extends ServicioGenerico<Torta>
         return super.store( torta );
     }
 
-    public void agregarPiso(Long tortaId, Piso piso ) {
+    public void agregarPiso( Long tortaId, Piso piso ) {
         super.get( tortaId ).agregarPiso( piso );
     }
 
@@ -54,12 +53,11 @@ public class ServicioTorta extends ServicioGenerico<Torta>
         removerPisoDeTorta( super.get( tortaId ), pisoId );
     }
 
-    private void removerPisoDeTorta( Torta torta, Long pisoId )
-    {
+    private void removerPisoDeTorta( Torta torta, Long pisoId ) {
         final Iterator<Piso> pisosIterator = torta.getPisos().iterator();
-        while( pisosIterator.hasNext() ) {
+        while ( pisosIterator.hasNext() ) {
             Piso piso = pisosIterator.next();
-            if( pisoId == piso.getId() ) {
+            if ( pisoId == piso.getId() ) {
                 pisosIterator.remove();
                 break;
             }

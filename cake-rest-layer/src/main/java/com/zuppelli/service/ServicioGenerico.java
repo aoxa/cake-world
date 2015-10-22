@@ -8,15 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public abstract class ServicioGenerico<T extends Entity> implements Servicio<T>
-{
+public abstract class ServicioGenerico<T extends Entity> implements Servicio<T> {
     @Autowired
     protected RepositorioGenerico<T> repositorioGenerico;
 
     protected final Class<T> current;
 
     protected ServicioGenerico( Class<T> current ) {
-            this.current = current;
+        this.current = current;
     }
 
     @Override

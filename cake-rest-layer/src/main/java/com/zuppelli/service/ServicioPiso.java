@@ -6,18 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServicioPiso extends ServicioGenerico<Piso>
-{
-    @Autowired private Servicio<Relleno> servicioRelleno;
+public class ServicioPiso extends ServicioGenerico<Piso> {
+    @Autowired
+    private Servicio<Relleno> servicioRelleno;
 
-    public ServicioPiso(  ) {
+    public ServicioPiso() {
         super( Piso.class );
     }
 
 
     @Override
-    public Piso store( Piso entity )
-    {
+    public Piso store( Piso entity ) {
         if ( null != entity.getRelleno() && null != entity.getRelleno().getId() ) {
             entity.setRelleno( servicioRelleno.get( entity.getRelleno().getId() ) );
         }

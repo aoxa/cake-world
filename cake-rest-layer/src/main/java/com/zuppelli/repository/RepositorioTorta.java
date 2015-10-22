@@ -13,13 +13,16 @@ import java.util.Collection;
  */
 @Component
 @Deprecated
-@ReemplazadoPor( referencia = RepositorioGenerico.class, razon = "En vez de tener un repositorio por entidad, pase a uno generico." )
+@ReemplazadoPor(
+        referencia = RepositorioGenerico.class,
+        razon = "En vez de tener un repositorio por entidad, pase a uno generico." )
 public class RepositorioTorta implements Repository<Torta, Long> {
-    @Autowired private Storage storage;
+    @Autowired
+    private Storage storage;
 
     @Override
     public Torta store( Torta entity ) {
-        storage.store( Torta.class, entity);
+        storage.store( Torta.class, entity );
 
         return entity;
     }

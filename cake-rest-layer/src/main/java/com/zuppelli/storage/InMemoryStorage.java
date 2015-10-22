@@ -18,7 +18,7 @@ public class InMemoryStorage implements Storage{
 
     @Override
     public <T> T store( Class<T> clazz, Entity entity ) {
-        if( null == entity.getId() ) {
+        if ( null == entity.getId() ) {
             entity.setId( Math.abs( random.nextLong() ) );
         }
         Map<Object, Object> map = content.get( clazz );
@@ -33,7 +33,7 @@ public class InMemoryStorage implements Storage{
     @Override
     public <T, K> T retrieve( Class<T> clazz, K id ) {
         Map<Object, Object> map = content.get( clazz );
-        if( null != map ) {
+        if ( null != map ) {
             return (T) map.get( id );
         }
         return null;
@@ -42,7 +42,7 @@ public class InMemoryStorage implements Storage{
     @Override
     public <T> Collection<T> retrieve( Class<T> clazz) {
         Map<Object, Object> map = content.get( clazz );
-        if( null != map ) {
+        if ( null != map ) {
             return (Collection<T> )map.values();
         }
         return null;
@@ -51,7 +51,7 @@ public class InMemoryStorage implements Storage{
     @Override
     public <T, K> void delete( Class<T> clazz, K id ) {
         Map<Object, Object> map = content.get( clazz );
-        if( null != map ) {
+        if ( null != map ) {
             map.remove( id );
         }
     }
