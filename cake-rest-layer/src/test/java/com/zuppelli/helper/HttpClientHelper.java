@@ -1,6 +1,7 @@
 package com.zuppelli.helper;
 
 import com.zuppelli.cake.modelo.Entity;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.annotation.Immutable;
@@ -22,14 +23,27 @@ public class HttpClientHelper {
     // private static final String APP = "cake-world-rest/";
     private static final String APP = "";
 
-    public static final String RECURSO_COBERTURA = "http://" + HOST + ":" + PORT + "/" + APP + "api/cobertura/";
-    public static final String RECURSO_RELLENO = "http://"+HOST+":"+PORT+"/" + APP + "api/relleno/";
-    public static final String RECURSO_TORTA = "http://"+HOST+":"+PORT+"/" + APP + "api/torta/";
-    public static final String RECURSO_TORTA_PISO = "http://"+HOST+":"+PORT+"/" + APP + "api/torta/%s/piso";
-    public static final String RECURSO_TORTA_POR_KILO = "http://"+HOST+":"+PORT+"/" + APP + "api/torta/por_kilo";
-    public static final String RECURSO_USUARIO = "http://"+HOST+":"+PORT+"/" + APP + "api/commerce/user";
-    public static final String RECURSO_CARRITO_USUARIO = "http://"+HOST+":"+PORT+"/" + APP + "api/commerce/user/%s/carrito";
+    public static final String RECURSO_COBERTURA = "http://HOST:PORT/" + APP + "api/cobertura/";
+    public static final String RECURSO_RELLENO = "http://HOST:PORT/" + APP + "api/relleno/";
+    public static final String RECURSO_TORTA = "http://HOST:PORT/" + APP + "api/torta/";
+    public static final String RECURSO_TORTA_PISO = "http://HOST:PORT/" + APP + "api/torta/%s/piso";
+    public static final String RECURSO_TORTA_POR_KILO = "http://HOST:PORT/" + APP + "api/torta/por_kilo";
+    public static final String RECURSO_USUARIO = "http://HOST:PORT/" + APP + "api/commerce/user";
+    public static final String RECURSO_CARRITO_USUARIO = "http://HOST:PORT/" + APP + "api/commerce/user/%s/carrito";
 
+    private static String buildUrl(String url ) {
+        return url.replace( "HOST", getHost() ).replace( "PORT", getPort() );
+    }
+
+    private static String getHost() {
+        String prop = System.getProperty( "server.host" );
+        return StringUtils.isBlank( prop ) ? HOST : prop;
+    }
+
+    private static String getPort() {
+        String prop = System.getProperty( "server.port" );
+        return StringUtils.isBlank( prop ) ? PORT : prop;
+    }
     public static HttpEntityEnclosingRequestBase postStringEntity( String url, Entity body ) throws UnsupportedEncodingException {
         try {
             return postStringEntity( url, CucumberContext.getInstance().getObjectMapper().writeValueAsString( body ),
@@ -52,7 +66,7 @@ public class HttpClientHelper {
     }
 
     public static HttpEntityEnclosingRequestBase postStringEntity( String url, Object body, String contentType, boolean update ) throws UnsupportedEncodingException {
-        HttpEntityEnclosingRequestBase post = update ? new HttpPut( url ) : new HttpPost( url );
+        HttpEntityEnclosingRequestBase post = update ? new HttpPut( buildUrl( url ) ) : new HttpPost( buildUrl( url ) );
 
         post.setEntity( new StringEntity( body.toString() ) );
         post.setHeader( "Content-Type", contentType );

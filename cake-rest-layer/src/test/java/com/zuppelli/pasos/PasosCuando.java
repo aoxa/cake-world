@@ -63,7 +63,7 @@ public class PasosCuando {
     public void agrego_un_piso() throws Throwable {
         Torta torta = CucumberContext.getInstance().get( CucumberContext.ContentKeys.TORTA );
         Piso piso = new Piso();
-        piso.setPeso( RandomUtils.nextInt() % 10d );
+        piso.setPeso( RandomUtils.nextInt() % 10d + 1 );
         torta.agregarPiso( piso );
 
         HttpClientHelper.execute( HttpClientHelper.postStringEntity(

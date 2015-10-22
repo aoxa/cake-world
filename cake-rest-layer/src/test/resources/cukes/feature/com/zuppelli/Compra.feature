@@ -2,7 +2,7 @@
 Característica: Compra una torta
   Efectua la carga de un carrito.
 
-  @comercio
+  @comercio @descuento
   Esquema del escenario:
   Carga el carrito con una torta, y valida el precio,
   con un descuento de primera compra.
@@ -19,7 +19,7 @@ Característica: Compra una torta
       |  2   |   30     |    60    | 0.15      |
       |  3   |   30     |    90    | 0.15      |
 
-  @comercio
+  @comercio @descuento
   Esquema del escenario:
   Carga el carrito con una torta, con cobertura y valida el precio,
   con un descuento de primera compra.
