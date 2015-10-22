@@ -33,8 +33,8 @@ public class Cobertura extends EntityDominio {
     }
 
     @Override
-    public boolean equals( Object o ) {
-        return Pojomatic.equals( this, o );
+    public boolean equals( Object other ) {
+        return Pojomatic.equals( this, other );
     }
 
     @Override
