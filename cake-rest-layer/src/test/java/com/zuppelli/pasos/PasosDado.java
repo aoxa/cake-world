@@ -87,7 +87,7 @@ public class PasosDado {
 
     @Dado("^soy un usuario que ya hizo una compra$")
     public void soy_un_usuario_que_ya_hizo_una_compra() throws Throwable {
-        HttpClientHelper.Response response = HttpClientHelper.execute( new HttpGet( HttpClientHelper.RECURSO_USUARIO ) );
+        HttpClientHelper.Response response = HttpClientHelper.execute( HttpClientHelper.getEntity( HttpClientHelper.RECURSO_USUARIO ) );
         List<Usuario> usuarios = CucumberContext.getInstance().getObjectMapper().readValue( response.getEntity(), new TypeReference< List <Usuario>>(){} );
         Usuario usuario = null;
         for( Usuario temp : usuarios ) {

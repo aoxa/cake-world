@@ -5,10 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.annotation.Immutable;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 
@@ -71,6 +68,10 @@ public class HttpClientHelper {
         post.setEntity( new StringEntity( body.toString() ) );
         post.setHeader( "Content-Type", contentType );
         return post;
+    }
+
+    public static HttpGet getEntity( String url ) {
+        return new HttpGet( buildUrl( url ) );
     }
 
     public static Response execute( HttpRequestBase request ) throws IOException {
