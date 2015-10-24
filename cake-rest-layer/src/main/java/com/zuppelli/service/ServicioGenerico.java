@@ -40,7 +40,7 @@ public abstract class ServicioGenerico<T extends Entity> implements Servicio<T> 
     }
 
     public void setRepositorioGenerico( RepositorioGenerico<T> repositorioGenerico) {
-        this.repositorioGenerico = repositorioGenerico;
+    this.repositorioGenerico = repositorioGenerico;
     }
 
 }
