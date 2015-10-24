@@ -1,6 +1,7 @@
 package com.zuppelli.service;
 
 import com.zuppelli.cake.modelo.Entity;
+import com.zuppelli.repository.Repositorio;
 import com.zuppelli.repository.RepositorioGenerico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,10 @@ public abstract class ServicioGenerico<T extends Entity> implements Servicio<T> 
     @Override
     public void remove( Long id ) {
         repositorioGenerico.remove( id, current );
+    }
+
+    public void setRepositorioGenerico( RepositorioGenerico<T> repositorioGenerico) {
+        this.repositorioGenerico = repositorioGenerico;
     }
 
 }
