@@ -6,6 +6,6 @@ package com.zuppelli.cake.modelo.comercio.descuento;
 public class PorCantidad implements Descuento {
     @Override
     public double aplicar( double total ) {
-        return total * 0.95;
+        return total * 0.9;
     }
 }
