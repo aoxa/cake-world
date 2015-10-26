@@ -7,13 +7,13 @@ import com.zuppelli.resource.Recurso;
 import com.zuppelli.service.ServicioCarrito;
 import com.zuppelli.service.ServicioUsuario;
 
+import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collection;
 
 @Path( "/commerce/user/{userId}/carrito" )
 @Autowire
@@ -32,9 +32,7 @@ public class RecursoCarrito extends Recurso<Carrito> {
 
     @Override
     public Carrito get( Long id ) {
-        Carrito carrito = servicioCarrito.get( id );
-
-        return carrito;
+        return servicioCarrito.get( servicioUsuario.get( this.userId ), id );
     }
 
     @Override

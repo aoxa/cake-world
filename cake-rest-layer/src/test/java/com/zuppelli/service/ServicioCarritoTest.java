@@ -1,6 +1,7 @@
 package com.zuppelli.service;
 
 import com.zuppelli.cake.modelo.comercio.Carrito;
+import com.zuppelli.cake.modelo.comercio.Usuario;
 import com.zuppelli.cake.modelo.dominio.Piso;
 import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.repository.RepositorioGenerico;
@@ -53,9 +54,17 @@ public class ServicioCarritoTest {
     @Test
     public void testGetOne() {
         expect( mockRepositorioGenerico.retrieve( carrito.getId(), Carrito.class ) ).andReturn( carrito );
-        expect( mockRepositorioGenerico.retrieve( Carrito.class ) ).andReturn( Arrays.asList( carrito ) );
         control.replay();
         servicioCarrito.get( carrito.getId() );
+        control.verify();
+    }
+
+    @Test
+    public void testGetWithParent() {
+        expect( mockRepositorioGenerico.retrieve( carrito.getId(), Carrito.class ) ).andReturn( carrito );
+        expect( mockRepositorioGenerico.retrieve( Carrito.class ) ).andReturn( Arrays.asList( carrito ) );
+        control.replay();
+        servicioCarrito.get( new Usuario(), carrito.getId() );
         control.verify();
     }
 
