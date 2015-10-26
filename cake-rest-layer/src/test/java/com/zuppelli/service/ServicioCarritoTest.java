@@ -62,7 +62,6 @@ public class ServicioCarritoTest {
     @Test
     public void testGetWithParent() {
         expect( mockRepositorioGenerico.retrieve( carrito.getId(), Carrito.class ) ).andReturn( carrito );
-        expect( mockRepositorioGenerico.retrieve( Carrito.class ) ).andReturn( Arrays.asList( carrito ) );
         control.replay();
         servicioCarrito.get( new Usuario(), carrito.getId() );
         control.verify();
