@@ -1,6 +1,7 @@
 package com.zuppelli.service;
 
 import com.zuppelli.cake.modelo.comercio.Carrito;
+import com.zuppelli.cake.modelo.dominio.Piso;
 import com.zuppelli.cake.modelo.dominio.Torta;
 import com.zuppelli.repository.RepositorioGenerico;
 import org.easymock.EasyMock;
@@ -24,9 +25,8 @@ public class ServicioCarritoTest {
         control = EasyMock.createControl();
         mockRepositorioGenerico = control.createMock( RepositorioGenerico.class );
         servicioCarrito.setRepositorioGenerico( mockRepositorioGenerico );
-        carrito = new Carrito();
-        carrito.setId( 10L );
-        carrito.addContenido( new Torta() );
+        carrito = creaCarrito();
+
     }
 
     @After
@@ -53,6 +53,7 @@ public class ServicioCarritoTest {
     @Test
     public void testGetOne() {
         expect( mockRepositorioGenerico.retrieve( carrito.getId(), Carrito.class ) ).andReturn( carrito );
+        expect( mockRepositorioGenerico.retrieve( Carrito.class ) ).andReturn( Arrays.asList( carrito ) );
         control.replay();
         servicioCarrito.get( carrito.getId() );
         control.verify();
@@ -64,5 +65,17 @@ public class ServicioCarritoTest {
         control.replay();
         servicioCarrito.get();
         control.verify();
+    }
+
+    private Carrito creaCarrito() {
+        Carrito carrito = new Carrito();
+        carrito.setId( 10L );
+        Torta torta = new Torta();
+        carrito.addContenido( torta );
+        Piso base = new Piso();
+        base.setPeso( 1 );
+        torta.setBase( base );
+
+        return carrito;
     }
 }
