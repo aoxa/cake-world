@@ -39,8 +39,8 @@ public abstract class ServicioGenerico<T extends Entity> implements Servicio<T> 
         repositorioGenerico.remove( id, current );
     }
 
-    public void setRepositorioGenerico( RepositorioGenerico<T> repositorioGenerico) {
-    this.repositorioGenerico = repositorioGenerico;
+    public void setRepositorioGenerico( RepositorioGenerico<T> repositorioGenerico ) {
+        this.repositorioGenerico = repositorioGenerico;
     }
 
 }
