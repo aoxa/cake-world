@@ -3,9 +3,10 @@ package com.zuppelli.cake.modelo.comercio.descuento;
 /**
  * Aplica una sola vez para todos los clientes, en la primer compra.
  */
-public class NuevoCliente implements Descuento {
+public class NuevoCliente extends DescuentoAcumulable {
+
     @Override
-    public double aplicar( double total ) {
+    protected double aplicaPropio( double total ) {
         return total * 0.85;
     }
 }

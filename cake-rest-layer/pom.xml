@@ -1,57 +1,66 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.zuppelli.cake</groupId>
-	<artifactId>cake-world-rest</artifactId>
-	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
-	<name>Cake World Rest Api</name>
-	<profiles>
-		<profile>
-			<id>Integration</id>
-			<properties>
-				<exclude.tests>nothing-to-exclude</exclude.tests>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.zuppelli.cake</groupId>
+    <artifactId>cake-world-rest</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>Cake World Rest Api</name>
+    <profiles>
+        <profile>
+            <id>Integration</id>
+            <properties>
+                <exclude.tests>nothing-to-exclude</exclude.tests>
                 <server.host>localhost</server.host>
                 <server.port>5723</server.port>
-			</properties>
-		</profile>
-	</profiles>
-	<properties>
-		<exclude.tests>**/integration/*.java</exclude.tests>
+            </properties>
+        </profile>
+    </profiles>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <exclude.tests>**/integration/*.java</exclude.tests>
         <server.host>localhost</server.host>
         <server.port>5723</server.port>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.3</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>1.8</version>
-		</dependency>
 
-		<dependency>
-			<groupId>com.sun.jersey.contribs</groupId>
-			<artifactId>jersey-spring</artifactId>
-			<version>1.19</version>
-		</dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>1.8</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
-			<version>1.8</version>
-		</dependency>
+        <dependency>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-spring</artifactId>
+            <version>1.19</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.zuppelli.cake</groupId>
-			<artifactId>cake-world-domain</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>1.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zuppelli.cake</groupId>
+            <artifactId>cake-world-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
@@ -72,11 +81,11 @@
             <version>4.3</version>
         </dependency>
 
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -86,59 +95,67 @@
 
     </dependencies>
 
-	<build>
-		<!-- http://localhost:8080/cake-world-rest/api/application.wadl/ -->
-		<finalName>cake-world-rest</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
+    <build>
+        <!-- http://localhost:8080/cake-world-rest/api/application.wadl/ -->
+        <finalName>cake-world-rest</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
                     <systemPropertyVariables>
                         <server.host>${server.host}</server.host>
                         <server.port>${server.port}</server.port>
                     </systemPropertyVariables>
-					<excludes>
-						<exclude>${exclude.tests}</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.0</version>
-				<configuration>
-					<port>${server.port}</port>
-					<httpsPort>8443</httpsPort>
-					<path>/</path>
-					<hostName>localhost</hostName>
-					<!--
-					<contextFile>${basedir}/src/test/resources/integration/context.xml</contextFile>
-					<keystoreFile>${basedir}/src/test/resources/integration/keystore.jks</keystoreFile>
-					<keystorePass>password</keystorePass>
-					-->
-					<extraDependencies>
-						<dependency>
-							<groupId>org.slf4j</groupId>
-							<artifactId>slf4j-api</artifactId>
-							<version>1.7.7</version>
-						</dependency>
-						<dependency>
-							<groupId>log4j</groupId>
-							<artifactId>log4j</artifactId>
-							<version>1.2.17</version>
-						</dependency>
-					</extraDependencies>
-					<skipErrorOnShutdown>true</skipErrorOnShutdown>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+                    <excludes>
+                        <exclude>${exclude.tests}</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <port>${server.port}</port>
+                    <httpsPort>8443</httpsPort>
+                    <path>/</path>
+                    <hostName>localhost</hostName>
+                    <!--
+                    <contextFile>${basedir}/src/test/resources/integration/context.xml</contextFile>
+                    <keystoreFile>${basedir}/src/test/resources/integration/keystore.jks</keystoreFile>
+                    <keystorePass>password</keystorePass>
+                    -->
+                    <extraDependencies>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-api</artifactId>
+                            <version>1.7.7</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>log4j</groupId>
+                            <artifactId>log4j</artifactId>
+                            <version>1.2.17</version>
+                        </dependency>
+                    </extraDependencies>
+                    <skipErrorOnShutdown>true</skipErrorOnShutdown>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <configLocation>checkstyles.xml</configLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

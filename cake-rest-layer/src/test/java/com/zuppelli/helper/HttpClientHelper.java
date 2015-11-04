@@ -27,6 +27,7 @@ public class HttpClientHelper {
     public static final String RECURSO_TORTA_POR_KILO = "http://HOST:PORT/" + APP + "api/torta/por_kilo";
     public static final String RECURSO_USUARIO = "http://HOST:PORT/" + APP + "api/commerce/user";
     public static final String RECURSO_CARRITO_USUARIO = "http://HOST:PORT/" + APP + "api/commerce/user/%s/carrito";
+    public static final String RECURSO_CARRITO_USUARIO_TORTA = "http://HOST:PORT/" + APP + "api/commerce/user/%s/carrito/%s/torta";
 
     private static String buildUrl(String url ) {
         return url.replace( "HOST", getHost() ).replace( "PORT", getPort() );
@@ -41,15 +42,25 @@ public class HttpClientHelper {
         String prop = System.getProperty( "server.port" );
         return StringUtils.isBlank( prop ) ? PORT : prop;
     }
-    public static HttpEntityEnclosingRequestBase postStringEntity( String url, Entity body ) throws UnsupportedEncodingException {
+
+    public static HttpEntityEnclosingRequestBase postStringEntity( String url, Entity body, boolean update ) throws UnsupportedEncodingException {
         try {
             return postStringEntity( url, CucumberContext.getInstance().getObjectMapper().writeValueAsString( body ),
-                    null != body.getId() );
+                    update );
+        } catch ( Exception e ) {
+            throw new UnsupportedEncodingException( e.getMessage() );
+        }
+    }
+
+    public static HttpEntityEnclosingRequestBase postStringEntity( String url, Entity body ) throws UnsupportedEncodingException {
+        try {
+            return postStringEntity( url, body , null != body.getId() );
         } catch ( Exception e ) {
             throw new UnsupportedEncodingException( e.getMessage() );
         }
 
     }
+
     public static HttpEntityEnclosingRequestBase postStringEntity( String url, String body ) throws UnsupportedEncodingException {
         return postStringEntity( url, body, false );
     }

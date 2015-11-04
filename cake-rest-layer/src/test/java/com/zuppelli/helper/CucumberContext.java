@@ -65,5 +65,7 @@ public class CucumberContext {
         String LOGIN = "login";
         String USER_ID = "user-id";
         String CARRITO_URL = "carrito-url";
+        String CARRITO = "carrito";
+
     }
 }
