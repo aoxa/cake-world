@@ -167,6 +167,10 @@ public class DomainDiagramMojo
         return new ArrayList<String>( project.getCompileClasspathElements() );
     }
 
+    public String getPrefix()
+    {
+        return getDomainPackage();
+    }
 
     public String getDomainPackage()
     {
